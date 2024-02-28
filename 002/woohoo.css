@@ -1,0 +1,37 @@
+h1 {
+    color: #e0c10e;
+    font-family: fantasy;
+    font-size: 100px;
+    text-align: center;
+    text-decoration: overline underline;
+    letter-spacing: 10px;
+    text-shadow: 2px 2px 5px black;
+}
+ol {
+    font-family: sans-serif;
+    font-size: 30px;
+    color: rgb(73, 29, 99);
+    padding: 100px;
+    margin: 0;
+}
+table {
+    text-align: center;
+    margin: 0;
+}
+td {
+    width: 853.33333333px;
+    border: 2px solid rgba(230, 140, 23, 0.692);
+    background-color: rgba(230, 140, 23, 0.692);
+}
+h2 {
+    font-family: sans-serif;
+    font-size: 20px;
+}
+p {
+    font-family: sans-serif;
+    font-size: 15px;
+}
+.italika {
+    font-family: sans-serif;
+    font-size: 12px;
+}

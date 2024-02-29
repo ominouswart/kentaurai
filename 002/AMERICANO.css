@@ -1,32 +1,32 @@
 a {
-    font-family: sans-serif;
-    font-size: 20px;
+  font-family: sans-serif;
+  font-size: 20px;
 }
 h1 {
-    font-family: fantasy;
-    font-size: 50px;
-    text-decoration: underline overline;
-    color: #e0c10e;
-    text-shadow: 2px 2px 5px black;
+  font-family: fantasy;
+  font-size: 50px;
+  text-decoration: underline overline;
+  color: #e0c10e;
+  text-shadow: 2px 2px 5px black;
 }
 h3 {
-    font-family: sans-serif;
-    font-size: 35px;
-    color: #e0c10e;
-    text-shadow: 1px 1px 3px black;
+  font-family: sans-serif;
+  font-size: 35px;
+  color: #e0c10e;
+  text-shadow: 1px 1px 3px black;
 }
 ul {
-    font-family: sans-serif;
-    font-size: 15px;
+  font-family: sans-serif;
+  font-size: 15px;
 }
 ol {
-    font-family: sans-serif;
-    font-size: 15px;
+  font-family: sans-serif;
+  font-size: 15px;
 }
 .ingredientas {
-    padding: 15px;
-    border: 2px solid #e0c10e;
-    background-color: #eb9c09;
-    margin: 3px;
-    display: inline-block;
+  padding: 15px;
+  border: 2px solid #e0c10e;
+  background-color: #eb9c09;
+  margin: 3px;
+  display: inline-block;
 }

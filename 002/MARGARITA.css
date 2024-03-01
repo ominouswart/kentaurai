@@ -30,3 +30,17 @@ ol {
   margin: 3px;
   display: inline-block;
 }
+html {
+  background: url(http://127.0.0.1:5500/002/booze-god-bad_topofarticle.gif) no-repeat center fixed;
+  background-size: cover;
+}
+.margarita {
+  display: inline-block;
+  width: 10%;
+  height: auto;
+  position: absolute;
+  right: 50%;
+}
+.hover:hover {
+  color: #1eff00;
+}

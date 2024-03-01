@@ -36,3 +36,22 @@ p {
   font-family: sans-serif;
   font-size: 12px;
 }
+/* .background {
+  background-image: url(http://127.0.0.1:5500/002/booze-god-bad_topofarticle.gif);
+  object-fit: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: auto;
+}
+no clue what this shit even is
+img {
+  width: 100%;
+  height: auto;
+} */
+html {
+  background: url(http://127.0.0.1:5500/002/booze-god-bad_topofarticle.gif) no-repeat center fixed;
+  background-size: cover;
+}
+.hover:hover {
+  color: #1eff00;
+}

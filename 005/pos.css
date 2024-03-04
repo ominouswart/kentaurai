@@ -1,0 +1,101 @@
+.circle {
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+}
+
+.circle.red {
+  background-color: crimson;
+  position: absolute;
+  left: 200px;
+  top: 200px;
+}
+
+.circle.green {
+  background-color: darkgreen;
+}
+
+.parent {
+    margin-top: 200px;
+    width: 700px;
+    height: 700px;
+    background-color: lightgray;
+    position: relative;
+}
+
+.btn {
+    font-size: 50px;
+    padding: 30px 15px;
+    background-color: lightblue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* .btn svg {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    transition: all 0.3s;
+} */
+.btn span {
+    position: relative;
+    top: -20px;
+    transition: all 0.3s;
+}
+/* .btn:hover svg {
+    top: -20px;
+    left: -40px;
+    fill: salmon;    
+} */
+
+.btn:hover span {
+    top: 20px;
+    left: 40px;
+}
+
+.img-container {
+    border: 1px solid black;
+    padding: 20px;
+    width: 500px;
+    position: relative;
+    margin: 20px;
+    height: 290px;
+}
+
+img {
+    width: 500px;
+    height: auto;
+    position: absolute;
+    transition: all 0.5s;
+}
+
+.img1 {
+    opacity: 1;
+}
+
+.img2 {
+    opacity: 0;
+}
+
+.img-container:hover .img1 {
+    opacity: 0;
+}
+
+.img-container:hover .img2 {
+    opacity: 1;
+}
+
+.img-container2 {
+    border: 1px solid black;
+    padding: 20px;
+    position: relative;
+    margin: 20px;
+    height: 290px;
+    overflow: hidden;
+}
+
+.img-container2 img {
+    position: relative;
+    display: inline-block;
+}

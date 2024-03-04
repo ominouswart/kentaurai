@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+}
+
+.layout {
+    width: 100%;
+}
+
+.bin {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.bin.menu {
+    background-color: lightblue;
+    height: 100px;
+}
+
+nav {
+    border-right: 3px solid white;
+    border-left: 3px solid white;
+    height: 100%;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+nav ul li a:hover {
+    color: darkblue;
+}
+
+.img-container {
+    border: 1px solid black;
+    padding: 20px;
+    width: 500px;
+    position: relative;
+    margin: 20px;
+    height: 290px;
+}
+
+.hero {
+    width: 100%;
+    height: 500px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+img {
+    width: 500px;
+    height: auto;
+    position: absolute;
+    transition: all 0.5s;
+}
+
+.img1 {
+    opacity: 1;
+}
+
+.img2 {
+    opacity: 0;
+}
+
+.img-container:hover .img1 {
+    opacity: 0;
+}
+
+.img-container:hover .img2 {
+    opacity: 1;
+}

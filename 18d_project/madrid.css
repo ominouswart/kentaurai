@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+}
+
+.layout {
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    border: 1px solid black;
+}
+
+.delivery {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+.container {
+    width: 100%;
+    max-width: 1625px;
+}
+
+.delivery.topmsg {
+    background-color: rgb(226, 159, 35);
+    height: 30px;
+}
+
+ul {
+    list-style: none;
+}
+
+.deliverynav {
+    height: 100%;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}

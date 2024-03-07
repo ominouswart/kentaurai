@@ -10,12 +10,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <input type="checkbox" id="menu">
+    <ul  class="desktop-menu">
+        <li class="m"><label for="menu">X</label></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+
+
     <div class="layout">
         <div class="bin menu">
             <div class="container">
                 <nav>
-                    <div class="desktop-menu">
-                    <ul>
+                    <div>
+                    <ul  class="desktop-menu">
                         <li><a href="#">Home</a></li>
                         <li><a href="#">About</a></li>
                         <li><a href="#">Services</a></li>
@@ -23,11 +35,11 @@
                     </ul>
                     </div>
                     <div class="mobile-menu burger-holder">
-                        <div class="burger">
+                        <label class="burger" for="menu">
                             <div class="line"></div>
                             <div class="line"></div>
                             <div class="line"></div>
-                        </div>
+                        </label>
                     </div>
                     </div>
                     <ul>

@@ -1,0 +1,17 @@
+.isore {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pliusas {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    justify-content: center;
+    color: blue;
+    font-size: 200px;
+}

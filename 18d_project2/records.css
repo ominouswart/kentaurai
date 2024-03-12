@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    font-family: "Work Sans", sans-serif;
+}
+
+.headertop {
+    margin: 0;
+    padding: 10px 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.headerlist {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0 0 0 10px;
+}
+.headerlisttext {
+    padding: 0 0 0 40px;
+    font-weight: 550;
+    /* color: white; */
+    transition: all 0.3s;
+}
+
+.headerlisttext:hover {
+    cursor: pointer;
+}
+
+.headertext {
+    margin: 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 50%;
+}
+
+#headershop {
+    padding: 0 0 0 20px;
+}
+
+#headershop::after {
+    content: url(http://127.0.0.1:5500/18d_project2/icons/arrow-drop-down-svgrepo-com.svg);
+    position: absolute;
+    top: 22px;
+    left: 69px;
+}
+
+.headericons {
+    width: 48%;
+    margin: 0;
+    display: flex;
+    justify-content: end;
+    padding: 0 2% 0 0;
+}
+
+.headericonslist {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    width: 80px;
+    justify-content: start;
+}
+
+.headericonsseparate {
+    padding: 0 0 0 10px;
+    display: flex;
+}
+
+
+.headericonslist2 {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    width: 80px;
+    justify-content: end;
+}
+
+.videorecord {
+    width: 100%;
+    height: 100%;
+}

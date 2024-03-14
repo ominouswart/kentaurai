@@ -1,6 +1,27 @@
 body {
     margin: 0;
+    padding: 0;
     font-family: "Work Sans", sans-serif;
+}
+
+.headerandvideo {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 10px 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.headerandvideo video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .headertop {
@@ -8,6 +29,7 @@ body {
     padding: 10px 0 0 0;
     display: flex;
     flex-wrap: wrap;
+    position: absolute;
 }
 
 .headerlist {
@@ -19,7 +41,7 @@ body {
 .headerlisttext {
     padding: 0 0 0 40px;
     font-weight: 550;
-    /* color: white; */
+    color: white;
     transition: all 0.3s;
 }
 
@@ -33,6 +55,7 @@ body {
     justify-content: start;
     align-items: center;
     width: 50%;
+    position: absolute;
 }
 
 #headershop {
@@ -76,7 +99,9 @@ body {
     justify-content: end;
 }
 
-.videorecord {
-    width: 100%;
-    height: 100%;
+
+svg {
+    width: 20px;
+    height: 20px;
+    position: absolute;
 }

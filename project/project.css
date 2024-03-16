@@ -3,6 +3,8 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
+    background-color: black;
+    overflow-x: hidden;
 }
 
 .topLine {
@@ -31,6 +33,10 @@ ul .posters {
     padding-right: 20px;
 }
 
+.posters:hover {
+    cursor: pointer;
+}
+
 li {
     height: fit-content;
     color: white;
@@ -40,7 +46,6 @@ li {
     width: 100%;
     height: 100px;
     display: flex;
-    background-color: black;
     overflow: hidden;
 }
 
@@ -67,6 +72,10 @@ svg {
     width: 20px;
 }
 
+svg:hover {
+    cursor: pointer;
+}
+
 .menu2 {
     width: 100%;
     height: 100px;
@@ -80,4 +89,582 @@ svg {
     justify-content: space-around;
 }
 
+.headerinfo {
+    width: 100%;
+    margin: 0 35px;
+}
+
+.infotext {
+    border: 1px solid #3d3d3d;
+    background-color: #3d3d3d;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+    width: 97%;
+}
+
+.infotextlist {
+    display: flex;
+    align-items: start;
+    text-decoration: none;
+    color: white;
+    flex-direction: column;
+    padding: 15px 5px 10px 40px;
+    justify-content: start;
+    position: relative;
+}
+.infotextlist p {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 300;
+    color: #BCBCBC;
+}
+
+.infotextlist strong {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 650;
+    color: #BCBCBC;
+}
+
+.fastfree::before {
+    content: url(http://127.0.0.1:5500/project/img/truck-svgrepo-com.svg);
+    position: absolute;
+    left: 0;
+    top: 20px;
+}
+
+.satisfaction::before {
+    content: url(http://127.0.0.1:5500/project/img/heart-svgrepo-com.svg);
+    position: absolute;
+    left: 0;
+    top: 20px;
+}
+
+.confidence::before {
+    content: url(http://127.0.0.1:5500/project/img/medal-ribbon-star-svgrepo-com.svg);
+    position: absolute;
+    left: 0;
+    top: 20px;
+}
+
+.excellent::before {
+    content: url(http://127.0.0.1:5500/project/img/stars-01-svgrepo-com.svg);
+    position: absolute;
+    left: 0;
+    top: 20px;
+}
+
+.mainImage {
+    width: 100%;
+    height: auto;
+    padding: 32px 0;
+}
+
+.wrapperBanner {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.wrapperText {
+    color: white;
+    display: flex;
+    align-self: flex-end;
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+}
+
+.wrapperBanner::before {
+    content: url(http://127.0.0.1:5500/project/img/Hero3.1.webp);
+    background-repeat: no-repeat;
+    width: 97%;
+    object-fit: cover;
+}
+
+.wrapperText p {
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+}
+
+.wrapperText h2 {
+    font-size: 40px;
+    margin: 0 0 30px 0;
+}
+
+.wrapperText button {
+    font-size: 23px;
+    font-weight: 550;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.wrapperText button:hover {
+    cursor: pointer;
+    color: white;
+    background-color: black;
+}
+
+.fourThemes {
+    width: 100%;
+    margin: 0 0 0 20px;
+}
+
+.fourThemesImages {
+    display: flex;
+    width: 97%;
+}
+
+.fourImgFirst {
+    flex: 1;
+    margin: 0 20px;
+    height: 800px;
+    overflow: hidden;
+}
+
+.fourImgFirst img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    position: relative;
+}
+
+.retroFirst {
+    cursor: default;
+}
+
+.retroFirst .retro {
+    position: absolute;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 275px;
+    top: 1980px;
+}
+
+.retro p {
+    font-size: 10px;
+    margin: 0;
+}
+
+.retro h4 {
+    font-size: 25px;
+    margin: 5px 0 10px 0;
+    font-weight: 500;
+}
+
+.retro button {
+    font-size: 15px;
+    font-weight: 550;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.retro button:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.natureFirst .nature {
+    position: absolute;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 900px;
+    top: 1980px;
+}
+
+.natureFirst {
+    cursor: default;
+}
+
+.nature p {
+    font-size: 10px;
+    margin: 0;
+}
+
+.nature h4 {
+    font-size: 25px;
+    margin: 5px 0 10px 0;
+    font-weight: 500;
+}
+
+.nature button {
+    font-size: 15px;
+    font-weight: 550;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.nature button:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.spaceFirst .space {
+    position: absolute;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 1510px;
+    top: 1980px;
+}
+
+.spaceFirst {
+    cursor: default;
+}
+
+.space p {
+    font-size: 10px;
+    margin: 0;
+}
+
+.space h4 {
+    font-size: 25px;
+    margin: 5px 0 10px 0;
+    font-weight: 500;
+}
+
+.space button {
+    font-size: 15px;
+    font-weight: 550;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.space button:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.biotechFirst .biotech {
+    position: absolute;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 2128px;
+    top: 1980px;
+}
+
+.biotechFirst {
+    cursor: default;
+}
+
+.biotech p {
+    font-size: 10px;
+    margin: 0;
+}
+
+.biotech h4 {
+    font-size: 25px;
+    margin: 5px 0 10px 0;
+    font-weight: 500;
+}
+
+.biotech button {
+    font-size: 15px;
+    font-weight: 550;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.biotech button:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.logoWrapper {
+    width: 85%;
+    font-size: 10px;
+    margin: 20px 0 20px 30px;
+    padding: 20px 30px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.firstVideo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.firstVideoBanner {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    object-fit: cover;
+}
+
+.firstVideoBanner video {
+    display: flex;
+    position: relative;
+    border-radius: 10px;
+}
+
+.firstVideoText {
+    position: absolute;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+    padding: 0 0 10px 0;
+    align-items: center;
+}
+
+.firstVideoText p {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+}
+
+.firstVideoText h4 {
+    margin: 0 0 20px 0;
+    padding: 0;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.firstVideoText button {
+    font-size: 15px;
+    font-weight: 550;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 8px 15px;
+}
+
+.firstVideoText button:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.satisfactionDiv {
+    margin: 70px 0;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.satisfactionDivText {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.satisfactionDivText h6 {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.satisfactionDivText p {
+    font-size: 12px;
+    margin: 18px 0 0 0;
+    padding: 0;
+}
+
+.twoPicsOneVid {
+    height: 1400px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10px;
+}
+
+.twoPics {
+    display: flex;
+    flex-direction: column;
+    max-height: 1400px;
+    position: relative;
+}
+
+.twoPics::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.twoPicsFirst {
+    flex: 1;
+    margin-bottom: 10px;
+    height: 550px;
+}
+
+
+.twoPicsFirst img {
+    width: 97%;
+    height: 100%;
+    object-fit: cover;
+    display: flex;
+    padding: 0 0 0 20px;
+    object-position: 0 40%;
+}
+
+.oneVideo {
+    flex: 1;
+    height: 1400px;
+    position: relative;
+}
+
+.oneVideo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.oneVideo video {
+    width: 97%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.firstPicText {
+    color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 550px;
+    top: 550px;
+}
+
+.firstPicText p {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+}
+
+.firstPicText h4 {
+    margin: 10px 0 20px 0;
+    padding: 0;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.firstPicText button {
+    font-size: 15px;
+    font-weight: 550;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 12px 20px;
+}
+
+.firstPicText button:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.secondPicText {
+    color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 490px;
+    top: 1250px;
+}
+
+.secondPicText p {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+}
+
+.secondPicText h4 {
+    margin: 10px 0 20px 0;
+    padding: 0;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.secondPicText button {
+    font-size: 15px;
+    font-weight: 550;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 12px 20px;
+}
+
+.secondPicText button:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.secondVideoText {
+    color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 540px;
+    top: 1250px;
+}
+
+.secondVideoText p {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+}
+
+.secondVideoText h4 {
+    margin: 10px 0 20px 0;
+    padding: 0;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.secondVideoText button {
+    font-size: 15px;
+    font-weight: 550;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 12px 20px;
+}
+
+.secondVideoText button:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
 

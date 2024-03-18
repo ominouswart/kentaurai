@@ -105,6 +105,10 @@ svg:hover {
     width: 97%;
 }
 
+.infotext a:hover {
+    cursor: default;
+}
+
 .infotextlist {
     display: flex;
     align-items: start;
@@ -808,3 +812,206 @@ svg:hover {
     border: 2px solid white;
 }
 
+.twoPosterImages {
+    width: 100%;
+    margin: 30px 0 0 0;
+}
+
+.twoPosterImagesInner {
+    display: flex;
+    justify-content: space-between;
+    height: 1100px;
+    padding: 30px;
+}
+
+.twoPosterImagesInner a {
+    display: inline-block;
+    position: relative;
+    width: 49.5%;
+}
+
+.twoPosterImagesInner a:hover {
+    cursor: default;
+}
+
+.twoPosterImagesInner a img {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* .twoPosterImagesInner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+} */
+/* nepaeina */
+
+.twoPosterImgText {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    padding: 20px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.twoPosterImgText p {
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+.twoPosterImgText h4 {
+    color: white;
+    margin: 10px 0 20px 0;
+    padding: 0;
+    font-size: 28px;
+    font-weight: 550;
+}
+
+.twoPosterImgText button {
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.twoPosterImgText button:hover {
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    border: 2px solid white;
+}
+
+.reviewSectionInner {
+    margin: 30px 30px;
+    border: 1px transparent;
+    border-radius: 10px;
+    background-color: #1b1b1b;
+    position: relative;
+    height: 550px;
+}
+
+.reviewSectionTop {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 30px;
+}
+
+.reviewSectionTopLeft p {
+    color: rgb(170, 165, 165);
+    font-size: 12px;
+}
+
+.reviewSectionTopLeft h4 {
+    color: white;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.reviewSectionTopRight {
+    display: flex;
+    align-items: center;
+}
+
+.reviewSectionTopRight a {
+    color: white;
+    font-size: 15px;
+}
+
+.reviewSectionMiddle {
+    display: flex;
+    margin: 40px 0 0 0;
+    padding: 30px;
+    justify-content: space-between;
+}
+
+.reviewSectionMiddleThird {
+    width: 30%;
+    border: 2px solid rgb(77, 76, 76);
+    background-color: black;
+    border-radius: 10px;
+    padding: 30px 30px 50px 30px;
+    position: relative;
+}
+
+.reviewSectionMiddleText {
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.reviewSectionMiddleText p {
+    font-size: 12px;
+    padding: 0 100px 0 100px;
+}
+
+.reviewSectionMiddleText h5 {
+    margin: 10px 0 30px 0;
+}
+
+.reviewSectionMiddlePicLink {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 85%;
+    left: 43%;
+    justify-content: center;
+    align-items: center;
+}
+
+.reviewSectionMiddlePicLink img {
+    width: 60px;
+    height: 70px;
+}
+
+.reviewSectionMiddlePicLink a {
+    color: rgb(204, 198, 198);
+}
+
+.emailSectionInner {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.emailSectionLeft p {
+    color: rgb(150, 147, 147);
+    font-size: 13px;
+    margin: 10px 0 0 0;
+}
+
+.emailSectionLeft h4 {
+    color: white;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.emailSectionRight {
+    display: flex;
+    margin: 20px;
+}
+
+.emailSectionInput p {
+    color: rgb(209, 208, 208);
+}
+
+.emailSectionInput button {
+    border-radius: 10px;
+    padding: 7px 20px;
+    font-weight: 600;
+}

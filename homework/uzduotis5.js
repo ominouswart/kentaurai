@@ -7,3 +7,5 @@ function rand(min, max) {
 let a = rand(5, 10);
 
 console.log(a);
+
+

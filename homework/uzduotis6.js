@@ -6,10 +6,10 @@ function rand(min, max) {
 
 let a = rand(5, 10);
 
-console.log(a);
-
-console.clear();
-
-for (i = 0; i < a; i++) {
-    console.log(a);
+if (a > 7) {
+    for (i = 0; i < a; i++) {
+        console.log(a);
+    }
+} else {
+    console.log('numeris lygus arba mazesnis nei 7')
 }

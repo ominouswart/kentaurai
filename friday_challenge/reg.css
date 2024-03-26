@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: black;
+}
+
+.signUpOuter {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signUpOuter p {
+    font-size: 10px;
+    color: grey;
+    align-self: flex-start;
+    margin: 0 0 0 250px;
+}
+
+.signUpInner {
+    background-color: #000000;
+    width: 80%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: end;
+    background-image: url(http://127.0.0.1:5500/friday_challenge/herbalife_Black_background_white_lines_of_different_thickness_a_f040fcb7-c9a5-4a2e-a190-c9838754072a.png);
+}
+
+.setUpAcc {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    background-color: #2c2b2b;
+    border-left: 1px solid #5f5e5e;
+}
+
+.setUpTop {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    width: 90%;
+    font-family: "Poppins", sans-serif;
+}
+
+.setUpTop input {
+    height: 40px;
+    margin: 15px 15px 15px 100px;
+    background-color: #2c2b2b;
+    border: 1px solid #3D3D3D;
+    border-radius: 5px;
+    padding: 5px 0 5px 20px;
+    font-size: 16px;
+    font-weight: 540;
+    color: #bdbaba;
+    width: 60%;
+}
+
+.setUpTop h4 {
+    font-size: 30px;
+    color: white;
+    padding: 80px 0 10px 100px;
+    margin: 0;
+}
+
+.setUpTop p {
+    font-size: 18px;
+    margin: 10px 0 40px 0;
+    padding: 0 0 0 100px;
+}
+
+/* .setUpTop submit {
+    margin: 0 0 40px 100px;
+    width: 180px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #3d7eb4;
+    border: 1px solid #2a6da3;
+    color: white;
+    font-size: 17px;
+} */
+
+.setUpBottom {
+    display: flex;
+    /* align-self: flex-end; */
+    width: 60%;
+    left: 240px;
+    position: relative;
+    border-top: 1px solid #5f5e5e;
+}
+
+.setUpBottom p {
+    margin: 40px 0 80px 0;
+    font-size: 18px;
+}
+
+.setUpBottom p a {
+    color: #3d7eb4;
+    text-decoration: none;
+    font-weight: 550;
+}
+
+.setUpBottom p a::after {
+    content: url(http://127.0.0.1:5500/friday_challenge/arrow-right-svgrepo-com.svg);
+    width: 22px;
+    height: 22px;
+    top: 100px;
+}
+
+.setUpSubmit input {
+    background-color: #3d7eb4;
+    height: 50px;
+    width: 180px;
+    padding: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.setUpCheckbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.setUpCheckbox input {
+    width: 30px;
+    border-radius: 5px;
+    accent-color: #2c2b2b;
+}
+
+.setUpCheckbox input:hover {
+    cursor: pointer;
+}
+
+.setUpCheckbox p {
+    padding: 0;
+    margin: 20px 15px 15px 5px;
+}
+
+.setUpSubmit {
+    width: 60%;
+    margin: 20px 0 20px 0;
+    height: 100px;
+}
+
+.setUpSubmit input:hover {
+    cursor: pointer;
+    color: #8a8a8a93;
+}
+

@@ -86,6 +86,10 @@
     color: #2B0236;
 }
 
+.topLogo {
+    margin-left: 100px;
+}
+
 .topHeadBtn {
     padding: 17px 35px;
     border-radius: 5px;
@@ -100,4 +104,42 @@
     background-color: transparent;
     color: #9A54BC;
     cursor: pointer;
+}
+
+.elipseContainer {
+    margin-top: 250px;
+}
+
+.allElipseWithButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.allElipseWithButton img {
+    position: absolute;
+}
+
+.smallElipse {
+    top: -160px;
+}
+
+.rectangle {
+    top: -150px;
+}
+
+.collabWord {
+    top: -45px;
+}
+
+.elipseButton {
+    position: absolute;
+    bottom: -140px;
+    padding: 5px 15px;
+    border: none;
+    border: 2px solid #9A54BC;
+    background-color: white;
+    color: #9A54BC;
+    border-radius: 5px;
 }

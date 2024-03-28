@@ -358,9 +358,105 @@
 }
 
 .bigCard {
-    border: 0.5px solid #AAAAAA;
+    border: 0.3px solid #aaaaaa6c;
     padding: 20px;
-    width: 300px;
-    height: 500px;
+    width: 250px;
+    height: 450px;
     border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    flex-direction: column;
+}
+
+.bigCard span {
+    font-weight: 700;
+}
+
+.bigCard h2 {
+    font-size: 36px;
+}
+
+.bigCard button {
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 20px;
+    border: none;
+    border: 2px solid #2B0236;
+    background-color: white;
+    color: #2B0236;
+    border-radius: 5px;
+}
+
+.bigCard ul li {
+    list-style: none;
+    font-size: 15px;
+    margin-top: 10px;
+    padding: 0 0 0 5px;
+}
+
+.bigCard ul li::marker {
+    content: "▶";
+}
+
+.bigCardThree {
+    background-color: #56E6A5;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.bigCardThree p {
+    font-size: 15px;
+    padding-bottom: 30px;
+}
+
+.reviewContainer {
+    margin-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 120px;
+}
+
+
+.reviewContainer p {
+    width: 30%;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.reviewParaContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reviewParaContainer::after {
+    content: "\F138";
+    font-family: bootstrap-icons;
+    margin-left: 300px;
+    font-size: 100px;
+}
+
+.reviewParaContainer::before {
+    content: "\F12F";
+    font-family: bootstrap-icons;
+    margin-right: 300px;
+    font-size: 100px;
+}
+
+.reviewPhoto {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.reviewPhoto span {
+    font-weight: 500;
+    font-size: 18px;
 }

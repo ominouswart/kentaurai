@@ -135,22 +135,30 @@ for (let i = 0; i < animals2.length; i++) {
 
 
 const penki = [];
-let aukstas = penki[0];
+// let aukstas = penki[0][0];
 
-for (let i = 0; i < 5; i++) {
-    const row = [];
-    for (let j = 0; j < 4; j++) {
-        row.push(rand(10, 99));
-    }
-    penki.push(row);
-    // if (penki[row][i] < aukstas) {
-    //     aukstas = penki[row][i];
-    // }
-}
+// for (let i = 0; i < 5; i++) {
+//     const row = [];
+//     for (let j = 0; j < 4; j++) {
+//         row.push(rand(10, 99));
+//     }
+//     penki.push(row);
+// }
 
 
-const min = Math.min(...penki.flat());
+// const min = Math.min(...penki.flat());
 
 
-console.table(penki);
-console.log(min);
+// for ( let i = 0; i < penki.length; i++) {
+//     for (let j = 0; j < penki[i].length; j++) {
+//         if (penki[i][j] < aukstas) {
+//             min = penki[i][j];
+//         }
+//     }
+// }
+
+console.clear();
+
+const arr2 = [0, 1, [2, [3, [4, [5]]]]];
+
+console.log(arr2.flat(Infinity));

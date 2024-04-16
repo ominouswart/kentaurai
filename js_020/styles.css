@@ -1,0 +1,19 @@
+.calc {
+    margin-top: 30px;
+}
+
+.parent {
+    width: 400px;
+    height: 400px;
+    background-color: skyblue;
+    margin: 20px;
+}
+
+.child {
+    position: fixed;
+    right: 100px;
+    top: 100px;
+    width: 40px;
+    height: 40px;
+    background-color: orange;
+}

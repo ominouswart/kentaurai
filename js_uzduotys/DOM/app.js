@@ -100,3 +100,64 @@ console.log('rusiu yra: ', typeCount);
 
 const prices = document.querySelectorAll('.prices h2');
 
+// B.
+// 1.
+
+h1.innerText = 'Zoo parkas';
+
+// 2.
+
+const stars = document.querySelectorAll('body i');
+
+stars.forEach(s => {
+    if (s.innerText == '***') {
+        s.innerText += '**';
+    }
+});
+
+
+// 3.
+
+const carn = document.querySelector('#plesrunai');
+
+carn.innerHTML += '<li>Leopardas</li>';
+
+// 4.
+
+const gyv = document.querySelector('#gyvates');
+
+const li = document.createElement('li');
+
+const sliek = document.createTextNode('Juru sliekas');
+
+li.appendChild(sliek);
+
+gyv.insertBefore(li, gyv.childNodes[0]);
+
+// 5.
+
+const span = document.createElement('span');
+
+const nauja = document.createTextNode(' Atsinaujinom');
+
+span.appendChild(nauja);
+
+animalType.forEach(a => {
+    if (a.innerText == 'Žoliaėdžiai') {
+        a.insertAdjacentElement("beforeend", span);
+    }
+});
+
+
+// 6.
+
+// const spanNew = document.querySelectorAll('.main span');
+
+const anim = document.querySelectorAll('body .main');
+
+anim.forEach(s => {
+    const spanNew = s.querySelector('span');
+    if (spanNew && s.innerText.trim() === 'Gyvatės') {
+        span.remove();
+    }
+});

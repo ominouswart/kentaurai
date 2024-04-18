@@ -42,4 +42,33 @@ color.addEventListener('change', _ => {
     localStorage.setItem('color', color.value)
 });
 
+
+let from = 10;
+
+let timerId;
+
+const h5 = document.querySelector('h5');
+
+const timer = document.querySelector('.timer');
+
+h5.innerText = from
+
+timer.addEventListener('click', _ => {
+
+    clearInterval(timerId);
+
+    timerId = setInterval(_ => {
+        from--;
+        if (from <= 0) {
+            clearInterval(timerId);
+        }
+        h5.innerText = from;
+    }, 1000);
+});
+
+
+
+
+
+
 });

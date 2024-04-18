@@ -65,18 +65,56 @@ africa.forEach(a => {
 
 // 4.
 
+// const h5 = document.querySelector('h5');
+
+// let added = 0;
+
+// const plus = document.querySelector('.plus').addEventListener('click', _ => {
+//     document.querySelectorAll('input').forEach(i => {
+//         added += i;
+//     });
+// });
+
+// const minus = document.querySelector('.minus');
+
+
 const h5 = document.querySelector('h5');
+const i1 = document.querySelector('.i1');
+const i2 = document.querySelector('.i2');
+const u41 = document.querySelector('.u41');
+const u42 = document.querySelector('.u41');
 
-let added = 0;
+u41.addEventListener('click', _ => {
+    const value1 = parseFloat(i1.value);
+    const value2 = parseFloat(i2.value);
+    
+    const rez = value1 + value2;
 
-const plus = document.querySelector('.plus').addEventListener('click', _ => {
-    document.querySelectorAll('input').forEach(i => {
-        added += i;
-    });
+    h5.innerText = rez;
 });
 
-const minus = document.querySelector('.minus');
+u42.addEventListener('click', _ => {
+    const value1 = parseFloat(i1.value);
+    const value2 = parseFloat(i2.value);
+    
+    const rez = value1 - value2;
+
+    h5.innerText = rez;
+});
 
 
+// 5.
 
+const australiaUl = document.querySelector('.australia');
 
+let html = '';
+
+australia.forEach(a => {
+    if (a != 'Dingo') {
+        html += `<li>${a}</li>`;
+    } else {
+        html += `<li style=:color:skyblue;">${a}</li>`;
+    }
+});
+
+australiaUl.innerHTML = html;

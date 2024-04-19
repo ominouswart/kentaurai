@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.hexContainer {
+    width: 35rem;
+    height: 18rem;
+    background-color: tomato;
+    text-align: center;
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+.hexContainer > * {
+    margin: 2rem 0;
+}
+
+.hexContainer span {
+    font-size: 2rem;
+    border: 2px double white;
+    color: white;
+    padding: 6px 9px;
+}
+
+.buttonsContainer button {
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: transparent;
+    border: 2px dotted white;
+    border-radius: 7px;
+    cursor: pointer;
+}

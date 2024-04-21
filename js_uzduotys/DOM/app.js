@@ -161,3 +161,44 @@ anim.forEach(s => {
         span.remove();
     }
 });
+
+// 7.
+
+const grass = document.querySelectorAll('#zoliaedziai li');
+
+grass.forEach(g => {
+    if (g.innerText == 'Laukinė kiaulė') {
+        g.remove();
+    }
+});
+
+// 8.
+
+const h3 = document.createElement('h3');
+
+const h3No = document.createTextNode('Neglostyti!');
+
+h3.appendChild(h3No);
+
+anim.forEach(a => {
+    if (a.innerText == 'Plėšrūnai') {
+        a.insertAdjacentElement('afterend', h3);
+    }
+});
+
+// 9.
+
+const h2 = document.createElement('h2');
+
+const priceKid = document.createTextNode('Studentas 3eur');
+
+h2.appendChild(priceKid);
+
+prices.forEach(p => {
+    if (p.innerText == 'Vaikas: 2eur') {
+        p.insertAdjacentElement('afterend', h2);
+    }
+});
+
+// 10.
+

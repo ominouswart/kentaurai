@@ -10,7 +10,31 @@
 <body>
     <main>
 
-        <div class="modal">
+        <div class="products-container">
+
+            <div class="products">
+                <div class="buttons">
+                    <button type="button" class="green --create">Create</button>
+                </div>
+                <div class="list --list">
+
+                    <div class="product">
+                        <div>
+                        <div class="id">ID:5</div>
+                        <div class="title">Baltas Stalas</div>
+                        <div class="price">20.5eur</div>
+                        </div>
+                        <div class="buttons">
+                            <button type="button" class="brown --edit">Edit</button>
+                            <button type="button" class="red --delete">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="modal modal--create --modal">
             <div class="card">
                 <h2>Create</h2>
                 <div class="input">
@@ -26,8 +50,8 @@
                     <textarea name = "productDesc"></textarea>
                 </div>
                 <div class="buttons">
-                    <button type="button" class="green">Add</button>
-                    <button type="button" class="gray">Cancel</button>
+                    <button type="button" class="green --submit">Save</button>
+                    <button type="button" class="gray --close">Cancel</button>
                 </div>
             </div>
         </div>

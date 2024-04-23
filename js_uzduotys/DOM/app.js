@@ -202,16 +202,101 @@ prices.forEach(p => {
 
 // 10.
 
+const carnList = carn.querySelectorAll('li');
+
+// let likeButton;
+
+// for (i = 0; i < carnList.length; i++) {
+//     if (carnList[i].className === "like-button") {
+//         likeButton = carnList[i];
+//         carn.removeChild(className("like-button"));
+//         break;
+//     }
+// }
+
+// let carnSort = Array.from(carnList).sort((a, b) => a.textContent.localeCompare(b.textContent));
+
+// if (PATINKA) {
+//     carn.insertBefore('PATINKA', carn.firstChild);
+// }
+
+// carnSort.forEach(i => {
+//     carn.appendChild(i);
+// });
 
 
+// C.
 
+// 1.
 
+h1.style.color = 'crimson';
 
+// 2.
 
+if (address != span) {
+    address.style.color = 'gray';
+}
 
+// 3.
 
+// animalType.style.color = 'cyan';
 
-// D.
+// 4.
+
+// likeButton = document.querySelectorAll('.like-button');
+
+const allList = document.querySelectorAll('li').forEach(a => {
+    if (a.innerText == 'PATINKA') {
+        a.style.border = '1px solid black';
+    }
+});
+
+// 5.
+
+newRats = document.querySelectorAll('.new').forEach(r => {
+    r.style.color = 'yellow';
+    r.style.backgroundColor = 'gray';
+});
+
+// 6.
+
+grass.forEach(g => {
+    if (g.innerText == 'Zuikis') {
+        g.style.display = 'none';
+    }
+});
 
 // 7.
 
+const bbz = document.querySelectorAll('li').forEach(a => {
+    a.style.listStyle = 'none';
+});
+
+// 8.
+
+const listParent = document.querySelectorAll('ul li').forEach(a => {
+    a.style.margin = '1rem';
+});
+
+// 9.
+
+const naujiena = document.querySelectorAll('.main span');
+naujiena.forEach(n => {
+    n.style.color = 'crimson';
+});
+
+// 10.
+
+const blable = document.querySelectorAll('.main span');
+
+const flashing = _ => {
+    blable.forEach(b => {
+    if (b.style.color == 'crimson') {
+        b.style.color = 'white'
+    } else {
+        b.style.color = 'crimson';
+    }
+});
+}
+
+setInterval(flashing, 300);

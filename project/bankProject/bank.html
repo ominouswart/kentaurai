@@ -35,8 +35,86 @@
             <div class="topArea">
                 <button type="button" class="newMoney">Nauja sąskaita</button>
             </div>
-            <div class="restOfTheArea"></div>
+            <!-- .................................................... -->
+            <div class="restOfTheArea">
+                <div class="products">
+                    <div class="list --list">    
+                        <div class="product">
+                            <div>
+                            <div class="fName">Antanas</div>
+                            <div class="lName">Antanaitis</div>
+                            <div class="balance">0.2eur</div>
+                            </div>
+                            <div class="buttons">
+                                <button type="button" class="gray --add">Pridėti lėšų</button>
+                                <button type="button" class="gray --edit">Nuskaičiuoti lėšas</button>
+                                <button type="button" class="gray --delete">Ištrinti</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
         </div>
+
+
+        <div class="products-container">
+        <div class="modal modal--create --modal">
+            <div class="card">
+                <h2>Nauja sąskaita</h2>
+                <div class="input">
+                    <div>Vardas</div>
+                    <input type="text" name = "firstName">
+                </div>
+                <div class="input">
+                    <div>Pavardė</div>
+                    <textarea name = "lastName"></textarea>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="gray --submit">Sukurti</button>
+                    <button type="button" class="gray --close">Atšaukti</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal--minus --modal">
+            <div class="card">
+                <h2>Nuskaičiavimas</h2>
+                <div class="input">
+                    <input type="text" name = "minusMoney">
+                </div>
+                <div class="buttons">
+                    <button type="button" class="gray --submit">Nuskaičiuoti</button>
+                    <button type="button" class="gray --close">Atšaukti</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal--plus --modal">
+            <div class="card">
+                <h2>Pridėjimas</h2>
+                <div class="input">
+                    <input type="text" name = "plusMoney">
+                </div>
+                <div class="buttons">
+                    <button type="button" class="gray --submit">Pridėti</button>
+                    <button type="button" class="gray --close">Atšaukti</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal--delete --modal">
+            <div class="card">
+                <h2>Ištrinti</h2>
+                <p></p>
+                <div class="buttons">
+                    <button type="button" class="gray --submit">Trinti</button>
+                    <button type="button" class="gray --close">Atšaukti</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     </main>
     

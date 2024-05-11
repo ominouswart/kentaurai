@@ -47,7 +47,7 @@
                             </div>
                             <div class="buttons">
                                 <button type="button" class="gray --add">Pridėti lėšų</button>
-                                <button type="button" class="gray --edit">Nuskaičiuoti lėšas</button>
+                                <button type="button" class="gray --minus">Nuskaičiuoti lėšas</button>
                                 <button type="button" class="gray --delete">Ištrinti</button>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="input">
                     <div>Pavardė</div>
-                    <textarea name = "lastName"></textarea>
+                    <input name = "lastName"></input>
                 </div>
                 <div class="buttons">
                     <button type="button" class="gray --submit">Sukurti</button>
@@ -82,7 +82,7 @@
             <div class="card">
                 <h2>Nuskaičiavimas</h2>
                 <div class="input">
-                    <input type="text" name = "minusMoney">
+                    <input type="text" name = "balance">
                 </div>
                 <div class="buttons">
                     <button type="button" class="gray --submit">Nuskaičiuoti</button>
@@ -95,7 +95,7 @@
             <div class="card">
                 <h2>Pridėjimas</h2>
                 <div class="input">
-                    <input type="text" name = "plusMoney">
+                    <input type="text" name = "balance">
                 </div>
                 <div class="buttons">
                     <button type="button" class="gray --submit">Pridėti</button>
@@ -106,7 +106,7 @@
 
         <div class="modal modal--delete --modal">
             <div class="card">
-                <h2>Ištrinti</h2>
+                <h2>Ištrinti <span class="custName"></span> saskaita?</h2>
                 <p></p>
                 <div class="buttons">
                     <button type="button" class="gray --submit">Trinti</button>

@@ -1,3 +1,5 @@
+// window.addEventListener('load', _ => {
+
 const firstButton = document.querySelector('header .moveForward .scamMaybe');
 const header = document.querySelector('header');
 const main = document.querySelector('main');
@@ -5,41 +7,46 @@ const main = document.querySelector('main');
 const html = `
 <div class="product">
     <div>
-        <div class="fullName">{{allName}}</div>
+        <div class="fullName">{{fName}}</div>
+        <div class="fullName">{{lName}}</div>
         <div class="balance">{{balance}}</div>
     </div>
         <div class="buttons">
             <button type="button" value="{{id}}" class="gray --add">Pridėti lėšų</button>
-            <button type="button" value="{{id}}" class="gray --edit">Nuskaičiuoti lėšas</button>
+            <button type="button" value="{{id}}" class="gray --minus">Nuskaičiuoti lėšas</button>
             <button type="button" value="{{id}}" class="gray --delete">Ištrinti</button>
         </div>
 </div>
 `;
 
 
-window.addEventListener('load', _ => {
+
 firstButton.addEventListener('click', () => {
     header.style.display = 'none';
     main.style.display = 'flex';
 });
 
-const LAST_ID_LS = 'productsLastSavedId';
-    const PRODUCTS_LS = 'productsList';
+const LAST_ID_LS = 'balanceLastSavedId';
+    const BALANCES_LS = 'balanceList';
     let destroyId = 0;
     let updateId = 0;
 
 
+    const listHtml = document.querySelector('.--list');
     const closeButtons = document.querySelectorAll('.--close');
     const createModal = document.querySelector('.modal--create');
     const storeButton = createModal.querySelector('.--submit');
     const createButton = document.querySelector('.newMoney');
 
     const minusModal = document.querySelector('.modal--minus');
+    const minusButton = minusModal.querySelector('.--submit');
+
     const plusModal = document.querySelector('.modal--plus');
-    const updateButton = editModal.querySelector('.--submit');
+    const plusButton = plusModal.querySelector('.--submit');
 
     const deleteModal = document.querySelector('.modal--delete');
     const destroyButton = deleteModal.querySelector('.--submit');
+
 
     
 
@@ -57,11 +64,11 @@ const LAST_ID_LS = 'productsLastSavedId';
 
 
     const write = data => {
-        localStorage.setItem(PRODUCTS_LS, JSON.stringify(data));
+        localStorage.setItem(BALANCES_LS, JSON.stringify(data));
     }
     
     const read = _ => {
-        const data = localStorage.getItem(PRODUCTS_LS);
+        const data = localStorage.getItem(BALANCES_LS);
         if (null === data) {
             return [];
         }
@@ -71,6 +78,7 @@ const LAST_ID_LS = 'productsLastSavedId';
     const storeData = data => {
         const storeData = read();
         data.id = getId();
+        data.balance = 0;
         storeData.push(data);
         write(storeData);
     }
@@ -103,25 +111,61 @@ const LAST_ID_LS = 'productsLastSavedId';
         let productsHtml = '';
         read().forEach(p => {
             let temp = html;
-            temp = temp.replaceAll('{{allName}}', p.fullName);
-            temp = temp.replaceAll('{{balance}}', p.balance);
+            temp = temp.replaceAll('{{id}}', p.id);
+            temp = temp.replaceAll('{{fName}}', p.firstName);
+            temp = temp.replaceAll('{{lName}}', p.lastName);
+            temp = temp.replaceAll('{{balance}}', '$ ' + p.balance);
             productsHtml += temp;
         });
         listHtml.innerHTML = productsHtml;
         registerDelete();
-        registerEdit();
+        registerEditMinus();
+        registerEditPlus();
     }
 
     const prepareDeleteModal = id => {
-        const title = read().find(p => p.id == id).productTitle;
-        deleteModal.querySelector('.product--name').innerText = title;
+        const title = read().find(p => p.id == id).lName;
+        deleteModal.querySelector('.custName').innerText = title;
     }
 
-    const prepareUpdateModal = id => {
-        const product = read().find(p => p.id == id);
-        editModal.querySelectorAll('[name]').forEach(i => {
-            i.value = product[i.getAttribute('name')];
+    const prepareMinusModal = id => {
+        const money = read().find(p => p.id == id);
+        minusModal.querySelectorAll('[name]').forEach(i => {
+            i.value = money[i.getAttribute('name')];
         });
+    }
+
+    const preparePlusModal = id => {
+        const money = read().find(p => p.id == id);
+        plusModal.querySelectorAll('[name]').forEach(i => {
+            i.value = money[i.getAttribute('name')];
+        });
+    }
+
+    const addBalance = (id, amount) => {
+        const data = read();
+        const index = data.findIndex(p => p.id === id);
+        if (index !== -1) {
+            data[index].balance += amount;
+            write(data);
+            hideModal(plusModal);
+            showList();
+        }
+    }
+    
+    const subtractBalance = (id, amount) => {
+        const data = read();
+        const index = data.findIndex(p => p.id === id);
+        if (index !== -1) {
+            data[index].balance -= amount;
+            if (data[index].balance < 0) {
+                alert("Insufficient balance!");
+                return;
+            }
+            write(data);
+            hideModal(minusModal);
+            showList();
+        }
     }
 
     // ............................................
@@ -147,12 +191,23 @@ const LAST_ID_LS = 'productsLastSavedId';
         showList(); // DOM
     }
 
-    const update = _ => {
-        const data = getDataFromForm(editModal);
-        updateData(updateId, data);
-        hideModal(editModal);
-        showList();
+    const minus = _ => {
+        const amount = parseFloat(minusModal.querySelector('[name="balance"]').value);
+    if (!isNaN(amount)) {
+        subtractBalance(updateId, amount);
+    } else {
+        alert("Invalid input! Please enter a valid number.");
     }
+}
+
+    const plus = _ => {
+        const amount = parseFloat(plusModal.querySelector('[name="balance"]').value);
+    if (!isNaN(amount)) {
+        addBalance(updateId, amount);
+    } else {
+        alert("Invalid input! Please enter a valid number.");
+    }
+}
 
     // ......................................
 
@@ -166,15 +221,27 @@ const LAST_ID_LS = 'productsLastSavedId';
         });
     }
 
-    const registerEdit = _ => {
-        document.querySelectorAll('.--edit').forEach(b => {
+    const registerEditMinus = _ => {
+        document.querySelectorAll('.--minus').forEach(b => {
             b.addEventListener('click', _ => {
-                showModal(editModal);
-                prepareUpdateModal(parseInt(b.value));
+                showModal(minusModal);
+                prepareMinusModal(parseInt(b.value));
                 updateId = parseInt(b.value);
             });
         });
     }
+
+    const registerEditPlus = _ => {
+        document.querySelectorAll('.--add').forEach(b => {
+            b.addEventListener('click', _ => {
+                showModal(plusModal);
+                preparePlusModal(parseInt(b.value));
+                updateId = parseInt(b.value);
+            });
+        });
+    }
+
+    showList();
 
     // ......................................
 
@@ -190,7 +257,9 @@ const LAST_ID_LS = 'productsLastSavedId';
 
     destroyButton.addEventListener('click', _ => destroy());
 
-    updateButton.addEventListener('click', _ => update());
+    minusButton.addEventListener('click', _ => minus());
+
+    plusButton.addEventListener('click', _ => plus());
 
 
-});
+// });

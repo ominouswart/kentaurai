@@ -47,7 +47,19 @@ const LAST_ID_LS = 'balanceLastSavedId';
     const deleteModal = document.querySelector('.modal--delete');
     const destroyButton = deleteModal.querySelector('.--submit');
 
+    const textContainer = document.getElementById('textContainer');
+    const originalText = document.querySelector('.text');
 
+
+
+    // function cloneText() {
+    //     const clone = originalText.cloneNode(true);
+    //     textContainer.appendChild(clone);
+    //   }
+
+    //   cloneText();
+
+    //   setInterval(cloneText, 5000);
     
 
 
@@ -108,8 +120,10 @@ const LAST_ID_LS = 'balanceLastSavedId';
     }
 
     const showList = _ => {
+        let balances = read();
+        let sortedData = balances.slice().sort((a, b) => a.lastName.localeCompare(b.lastName));
         let productsHtml = '';
-        read().forEach(p => {
+        sortedData.forEach(p => {
             let temp = html;
             temp = temp.replaceAll('{{id}}', p.id);
             temp = temp.replaceAll('{{fName}}', p.firstName);
@@ -159,7 +173,7 @@ const LAST_ID_LS = 'balanceLastSavedId';
         if (index !== -1) {
             data[index].balance -= amount;
             if (data[index].balance < 0) {
-                alert("Insufficient balance!");
+                alert("Saskaita negali eiti i minus");
                 return;
             }
             write(data);
@@ -179,16 +193,16 @@ const LAST_ID_LS = 'balanceLastSavedId';
     }
     
     const store = _ => {
-        const data = getDataFromForm(createModal);  //  CRUD
-        storeData(data);  // LS
-        hideModal(createModal);  // DOM
-        showList();  // DOM
+        const data = getDataFromForm(createModal); 
+        storeData(data);  
+        hideModal(createModal); 
+        showList();  
     }
 
     const destroy = _ => {
-        destroyData(destroyId);  // LS
-        hideModal(deleteModal); // DOM
-        showList(); // DOM
+        destroyData(destroyId); 
+        hideModal(deleteModal); 
+        showList(); 
     }
 
     const minus = _ => {
@@ -196,7 +210,7 @@ const LAST_ID_LS = 'balanceLastSavedId';
     if (!isNaN(amount)) {
         subtractBalance(updateId, amount);
     } else {
-        alert("Invalid input! Please enter a valid number.");
+        alert("Iveskite skaiciu");
     }
 }
 
@@ -205,7 +219,7 @@ const LAST_ID_LS = 'balanceLastSavedId';
     if (!isNaN(amount)) {
         addBalance(updateId, amount);
     } else {
-        alert("Invalid input! Please enter a valid number.");
+        alert("Iveskite skaiciu");
     }
 }
 

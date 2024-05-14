@@ -1,0 +1,91 @@
+.container {
+    width: 900px;
+    height: 700px;
+    background-color: bisque;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .vava {
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+}
+
+.item1 {
+    height: 200px;
+    width: 250px;
+    background-color: rgb(214, 71, 35);
+    border: 2px solid rgb(114, 31, 10);
+    border-radius: 10%;
+}
+
+.item2 {
+    height: 200px;
+    width: 250px;
+    background-color: yellow;
+    border: 2px solid rgb(92, 92, 4);
+    border-radius: 10%;
+}
+
+.item3 {
+    height: 200px;
+    width: 250px;
+    background-color: rgb(67, 74, 180);
+    border: 2px solid rgb(11, 15, 78);
+    border-radius: 10%;
+}
+
+.item12 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 200px;
+    width: 250px;
+    background-color: rgb(214, 71, 35);
+    border: 2px solid rgb(114, 31, 10);
+    border-radius: 10%;
+}
+
+.item22 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 250px;
+    background-color: yellow;
+    border: 2px solid rgb(92, 92, 4);
+    border-radius: 10%;
+}
+
+.item32 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 250px;
+    background-color: rgb(67, 74, 180);
+    border: 2px solid rgb(11, 15, 78);
+    border-radius: 10%;
+}
+
+.item12 div {
+    width: 50px;
+    height: 50px;
+    background-color: blueviolet;
+}
+
+.item22 div {
+    width: 50px;
+    height: 50px;
+    background-color: rgb(62, 196, 22);
+}
+
+.item32 div {
+    width: 50px;
+    height: 50px;
+    background-color: rgb(21, 155, 218);
+}

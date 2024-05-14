@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+    background-color: antiquewhite;
+}
+
+.navigation ul {
+    display: flex;
+    gap: 30px;
+}

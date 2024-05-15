@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://colors.test/style.css">
+    <title>Edit Color</title>
+    <script src="http://colors.test/app.js" defer></script>
+    <script>
+      const shape = JSSHAPE;
+    </script>
+</head>
+<body class="with-csr">
+
+    {{NAV}}
+    
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-7">
+            <div class="card mt-5">
+              <div class="card-header">
+                <h3>Edit Color</h3>
+              </div>
+              <div class="card-body">
+                <div class="edit">
+                  <h5 class="card-title">Edit your color and shape</h5>
+                  <div class="edit__color-shape shape-{{SHAPE}}" 
+                  style="background-color: COLOR;">
+                  </div>
+  
+                </div>
+
+
+                <form action="http://colors.test/update/{{ID}}" method="post">
+                <div class="m-3">
+                  <label class="form-label">Color picker</label>
+                  <input type="color" class="form-control form-control-color" name="color" value="color">
+                </div>
+                <div class="m-3">
+                  <div class="mb-3">Shape Picker</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="shape" id="shape1" value="1" {{VAL1}}>
+                    <label class="form-check-label" for="shape1">
+                      Circle
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="shape" id="shape2" value="2" {{VAL2}}>
+                    <label class="form-check-label" for="shape2">
+                      Squared
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="shape" id="shape3" value="3" {{VAL3}}>
+                    <label class="form-check-label" for="shape3">
+                      Rounded
+                    </label>
+                  </div>
+                </div>
+                <div class="mb-3 mt-5">
+                  <button type="submit" class="btn btn-outline-primary">Save</button>
+                  <a href="http://colors.test/" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+              </form>
+
+
+
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+</body>
+</html>

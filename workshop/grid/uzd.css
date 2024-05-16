@@ -1,0 +1,12 @@
+.container {
+    width: 600px;
+    height: 600px;
+    background-color: wheat;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 75px 75px 75px 75px 75px 75px 75px 75px;
+}
+
+.black {
+    background-color: rgb(75, 59, 36);
+}

@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { v4: uuidv4 } = require('uuid');
+const md5 = require('md5');
 const app = express();
 const port = 80;
 
@@ -10,6 +11,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 const fs = require('node:fs');
+
+
+const addNav = (id, html) => {
+    let nav = fs.readFileSync('./data/nav.html', 'utf8');
+    let userHtml;
+    if (!isLogged(id)) {
+        userHtml = fs.readFileSync('./data/navAnon.html', 'utf8');
+    } else {
+        userHtml = fs.readFileSync('./data/navUser.html', 'utf8');
+    }
+    nav = nav.replace('{{USER}}', userHtml);
+    return html.replace('{{NAV}}', nav);
+}
 
 const addMessage = (id, text, type) => {
     let data = fs.readFileSync('./data/sessions.json', 'utf8');
@@ -36,6 +50,26 @@ const showMessage = id => {
         </div>
         `;
     }
+
+    const loginUser = (id, user) => {
+        let data = fs.readFileSync('./data/sessions.json', 'utf8');
+        data = JSON.parse(data);
+        data = data.map(s => s.id === id ? {id, d: {...s.d, user: user.email }} : s);
+        data = JSON.stringify(data);
+        fs.writeFileSync('./data/sessions.json', data);
+    }
+
+    const isLogged = id => {
+        let data = fs.readFileSync('./data/sessions.json', 'utf8');
+        data = JSON.parse(data);
+        const session = data.find(s => s.id === id);
+        if (!session || !session.d?.user) {
+            return false;
+        }
+        return true;        
+    }
+
+
 
 
 
@@ -68,13 +102,20 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-
-    console.log('Cookies: ', req.cookies);
-
-    res.cookie('labas', 'Saldainis shokoladinas', {maxAge: 0 });
-
-    let html = fs.readFileSync('./data/index.html', 'utf8');
+    let html = fs.readFileSync('./data/home.html', 'utf8');
     const nav = fs.readFileSync('./data/nav.html', 'utf8');
+    html = html.replace('{{NAV}}', nav).replace('{{MSG}}', showMessage(req.sessionsId));
+    res.send(html);
+});
+
+app.get('/colors', (req, res) => {
+
+    if (!isLogged(req.sessionsId)) {
+        res.redirect(302, 'http://colors.test/login').end();
+        addMessage(req.sessionsId, 'You need to be logged in to view', 'danger');
+    }
+    
+    let html = fs.readFileSync('./data/index.html', 'utf8');
     const listItem = fs.readFileSync('./data/listItem.html', 'utf8');
     let data = fs.readFileSync('./data/colors.json', 'utf8');
     data = JSON.parse(data);
@@ -84,8 +125,8 @@ app.get('/', (req, res) => {
         liHtml = liHtml.replaceAll('{{ID}}', li.id).replace('{{SHAPE}}', li.shape).replace('COLOR', li.color);
         listItems += liHtml;
     });
-    html = html.replace('{{NAV}}', nav).replace('{{LI}}', listItems).replace('{{MSG}}', showMessage(req.sessionsId));
-
+    html = html.replace('{{LI}}', listItems).replace('{{MSG}}', showMessage(req.sessionsId));
+    html = addNav(html);
 
     res.send(html);
 });
@@ -112,7 +153,7 @@ app.post('/store', (req, res) => {
 
     addMessage(req.sessionsId, 'New color was added', 'success');
 
-    res.redirect(302, 'http://colors.test');
+    res.redirect(302, 'http://colors.test/colors');
 });
 
 
@@ -140,7 +181,7 @@ app.post('/destroy/:id', (req, res) => {
     fs.writeFileSync('./data/colors.json', data);
 
     addMessage(req.sessionsId, 'Color was deleted', 'info');
-    res.redirect(302, 'http://colors.test');
+    res.redirect(302, 'http://colors.test/colors');
 });
 
 
@@ -193,10 +234,65 @@ app.post('/update/:id', (req, res) => {
     fs.writeFileSync('./data/colors.json', data);
 
     addMessage(req.sessionsId, 'Color was edited', 'success');
-    res.redirect(302, 'http://colors.test');
+    res.redirect(302, 'http://colors.test/colors');
 });
 
+app.get('/register', (req, res) => {
+    if (isLogged(req.sessionsId)) {
+        res.redirect(302, 'http://colors.test/').end();
+        addMessage(req.sessionsId, 'You need to be logged in to view', 'danger');
+    }
 
+    let html = fs.readFileSync('./data/register.html', 'utf8');
+    const nav = fs.readFileSync('./data/nav.html', 'utf8');
+    html = html.replace('{{NAV}}', nav).replace('{{MSG}}', showMessage(req.sessionsId));
+    res.send(html);
+});
+
+app.post('/register', (req, res) => {
+    const email = req.body.email;
+    const password = md5(req.body.password);
+    const id = uuidv4();
+    let data = fs.readFileSync('./data/users.json', 'utf8');
+    data = JSON.parse(data);
+    data.push({ id, email, password});
+    data = JSON.stringify(data);
+    fs.writeFileSync('./data/users.json', data);
+
+    addMessage(req.sessionsId, 'You are succesfully registered', 'success');
+
+    res.redirect(302, 'http://colors.test/colors');
+    
+});
+
+app.get('/login', (req, res) => {
+    if (isLogged(req.sessionsId)) {
+        res.redirect(302, 'http://colors.test/').end();
+        addMessage(req.sessionsId, 'You need to be logged in to view', 'danger');
+    }
+
+    let html = fs.readFileSync('./data/login.html', 'utf8');
+    html = html.replace('{{MSG}}', showMessage(req.sessionsId));
+    res.send(html);
+});
+
+app.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = md5(req.body.password);
+    let data = fs.readFileSync('./data/users.json', 'utf8');
+    data = JSON.parse(data);
+
+    const user = data.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        loginUser(req.sessionsId, user);
+        addMessage(req.sessionsId, 'You have logged in succesfully', 'success');
+        res.redirect(302, 'http://colors.test');
+    } else {
+        addMessage(req.sessionsId, 'Invalid password or e-mail', 'danger');
+        res.redirect(302, 'http://colors.test/login');
+    }
+});
 
 
 app.listen(port, _ => {

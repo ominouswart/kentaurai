@@ -2,15 +2,14 @@ import 'bootstrap';
 
 
 
-// window.addEventListener('load', _ => {
+window.addEventListener('load', _ => {
 
-//     if (document.querySelector('.with-csr')) {
-
-//         const checkedInput = document.querySelector(`#shape${shape}`);
-
-//         checkedInput.checked = true;
-//     }
-
+    if (document.querySelector('.alert')) {
+        setTimeout(_ => {
+            document.querySelector('.alert').remove();
+        }, 2000 );
+    }
 
 
-// });
+
+});

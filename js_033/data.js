@@ -45,6 +45,13 @@ app.get('/', (req, res) => {
     res.send(html);
 });
 
+app.get('/addAnimal', (req, res) => {
+    let html = fs.readFileSync('./data/create.html', 'utf8');
+    let data = fs.readFileSync('./data/animals.json', 'utf8');
+    data = JSON.parse(data);
+    res.send(html);
+});
+
 
 app.listen(port, _ => {
     console.log(`animals app listening on port ${port}`);

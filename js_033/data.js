@@ -28,23 +28,6 @@ const animalZoo = [
 ];
 
 
-
-
-const getAnimals = () => {
-    let data = fs.readFileSync('./data/animals.json', 'utf8');
-    return JSON.parse(data);
-};
-
-
-const addAnimalAndDisplay = (name, species, age) => {
-    const animals = getAnimals();
-    const newAnimal = { name, species, age };
-    animals.push(newAnimal);
-
-    return animals;
-};
-
-
 app.get('/', (req, res) => {
     fs.writeFileSync('./data/animals.json', JSON.stringify(animalZoo));
 

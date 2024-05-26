@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Animal</title>
-    <script src="http://localhost/app.js" defer></script>
+    <script src="http://localhost/data.js" defer></script>
 </head>
 <body style="background-color: bisque;">
     
@@ -17,18 +17,18 @@
               </div>
               <div style="display: flex; justify-content: center; flex-direction: column; height: 70%;">
                 <h5 style="font-size: 30px;">Animal info</h5>
-                <form action="http://localhost/saveAnimal" method="post" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                <form action="/saveAnimal" method="post" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                 <div style="margin: 10px;">
                   <label class="form-label">Animal Name</label>
-                  <input type="text" class="form-control form-control-color" name="color">
+                  <input type="text" name="name">
                 </div>
                 <div style="margin: 10px;">
                   <label class="form-label">Animal Species</label>
-                  <input type="text" class="form-control form-control-color" name="color">
+                  <input type="text" name="species">
                 </div>
                 <div style="margin: 10px;">
                   <label class="form-label">Animal Age</label>
-                  <input type="text" class="form-control form-control-color" name="color">
+                  <input type="text" name="age">
                 </div>
                 <div style="margin: 10px;">
                 </div>

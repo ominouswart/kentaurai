@@ -5,22 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="http://localhost/data.js"></script>
+    <link rel="stylesheet" href="http://localhost/style.css">
     <title>Zoo</title>
 </head>
 
-<body style="background-color: bisque;">
-
-    <div style="display: flex; align-items: center; justify-content: center;">
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand mainTitle" href="http://localhost/">Zoo</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link mainBtn" href="http://localhost/addAnimal">Add New Animal</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container text-center">
         <div class="row">
             <div class="col-12">
                 <div class="card mt-5">
-                    <div style="display: flex; align-items: center; justify-content: space-around;">
-                        <h1 style="font-size: 50px;">Zoo</h1>
-                        <p style="font-size: 25px; color: black;" class="newBtn">
-                            <a style="text-decoration: none; color: black; border: 1px solid black; border-radius: 10px; padding: 5px" class="nav-link" href="http://localhost/addAnimal">Add New Animal</a>
-                          </p>
-                    </div>
-                    <ul style="display: flex; justify-content: center; align-items: center; gap: 50px; width: 100%;">
+                      <ul class="list-group list-group-flush">
                         {{LI}}
                     </ul>
                 </div>

@@ -8,6 +8,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const fs = require('node:fs');
+const { error } = require('node:console');
 
 const animalZoo = [
     {name: 'Lion', species: 'Panthera leo', age: 10},
@@ -29,7 +30,9 @@ const animalZoo = [
 
 
 app.get('/', (req, res) => {
+    try {
     fs.writeFileSync('./data/animals.json', JSON.stringify(animalZoo));
+    console.log('animals written');
 
     let html = fs.readFileSync('./data/index.html', 'utf8');
     const listItem = fs.readFileSync('./data/listItem.html', 'utf8');
@@ -43,13 +46,44 @@ app.get('/', (req, res) => {
     });
     html = html.replace('{{LI}}', listItems);
     res.send(html);
+} catch(error) {
+    console.error(error);
+}
 });
 
 app.get('/addAnimal', (req, res) => {
+    try {
     let html = fs.readFileSync('./data/create.html', 'utf8');
-    let data = fs.readFileSync('./data/animals.json', 'utf8');
-    data = JSON.parse(data);
     res.send(html);
+    } catch(error) {
+        console.error(error);
+    }
+});
+
+app.post('/saveAnimal', (req, res) => {
+
+    try {
+        console.log('Received data:', req.body);
+
+    const name = req.body.name;
+    const species = req.body.species;
+    const age = parseInt(req.body.age);
+
+    if (!name || !species || isNaN(age)) {
+        console.error('Invalid input:', { name, species, age });
+        return res.status(400).send('Invalid input.');
+    }
+
+    animalZoo.push({ name, species, age });
+
+    fs.writeFileSync('./data/animals.json', JSON.stringify(animalZoo));
+    console.log('animal saved: ', { name, species, age });
+
+    res.redirect(302, '/');
+
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 

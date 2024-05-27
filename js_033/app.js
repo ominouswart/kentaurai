@@ -32,11 +32,14 @@ const animalZoo = [
 app.get('/', (req, res) => {
     try {
 
-    fs.writeFileSync('./data/animals.json', JSON.stringify(animalZoo));
+        
 
     let html = fs.readFileSync('./data/index.html', 'utf8');
     const listItem = fs.readFileSync('./data/listItem.html', 'utf8');
     let data = fs.readFileSync('./data/animals.json', 'utf8');
+    if (data !== '') {
+        fs.writeFileSync('./data/animals.json', JSON.stringify(animalZoo));
+            }
     data = JSON.parse(data);
     let listItems = '';
     data.forEach(li => {

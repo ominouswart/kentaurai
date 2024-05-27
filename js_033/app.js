@@ -31,8 +31,8 @@ const animalZoo = [
 
 app.get('/', (req, res) => {
     try {
+
     fs.writeFileSync('./data/animals.json', JSON.stringify(animalZoo));
-    console.log('animals written');
 
     let html = fs.readFileSync('./data/index.html', 'utf8');
     const listItem = fs.readFileSync('./data/listItem.html', 'utf8');

@@ -37,14 +37,14 @@ app.get('/', (req, res) => {
     let html = fs.readFileSync('./data/index.html', 'utf8');
     const listItem = fs.readFileSync('./data/listItem.html', 'utf8');
     let data = fs.readFileSync('./data/animals.json', 'utf8');
-    if (data !== '') {
-        fs.writeFileSync('./data/animals.json', JSON.stringify(animalZoo));
-            }
     data = JSON.parse(data);
     let listItems = '';
     data.forEach(li => {
         let liHtml = listItem;
-        liHtml = liHtml.replace('{{NAME}}', li.name).replace('{{SPECIES}}', li.species).replace('{{AGE}}', li.age);
+        liHtml = liHtml.replace('{{NAME}}', li.name)
+        .replace('{{SPECIES}}', li.species)
+        .replace('{{AGE}}', li.age)
+        .replace('{{NAMETWO}}', li.name);
         listItems += liHtml;
     });
     html = html.replace('{{LI}}', listItems);
@@ -71,15 +71,17 @@ app.post('/saveAnimal', (req, res) => {
     const name = req.body.name;
     const species = req.body.species;
     const age = parseInt(req.body.age);
+    let data = fs.readFileSync('./data/animals.json', 'utf8');
+    data = JSON.parse(data);
+    data.push({ name, species, age });
+    data = JSON.stringify(data);
+    fs.writeFileSync('./data/animals.json', data);
 
     if (!name || !species || isNaN(age)) {
         console.error('Invalid input:', { name, species, age });
         return res.status(400).send('Invalid input.');
     }
 
-    animalZoo.push({ name, species, age });
-
-    fs.writeFileSync('./data/animals.json', JSON.stringify(animalZoo));
     console.log('animal saved: ', { name, species, age });
 
     res.redirect(302, '/');
@@ -87,6 +89,26 @@ app.post('/saveAnimal', (req, res) => {
     } catch (error) {
         console.error(error);
     }
+});
+
+app.get('/edit/:name', (req, res) => {
+
+    
+    let data = fs.readFileSync('./data/animals.json', 'utf8');
+    data = JSON.parse(data);
+    const animalName = req.params.name;
+    console.log(`searching for: ${animalName}`);
+    const animal = data.find(a => a.name === animalName);
+
+    let html = fs.readFileSync('./data/edit.html', 'utf8');
+        html = html.replace('{{NAMETWO}}', animal.name)
+        .replace('{{SPECIES}}', animal.species)
+        .replace('{{AGE}}', animal.age)
+        .replace('{{NAME}}', animal.name);
+    console.log(animal.name);
+
+    res.send(html);
+    
 });
 
 

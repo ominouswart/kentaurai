@@ -52,6 +52,68 @@ app.get('/', (_, res) => {
       });
 });
 
+app.post('/plant', (req, res) => {
+
+    const { name, height, type } = req.body;
+
+    // const sql = `
+    // INSERT INTO trees (name, height, type)
+    // VALUES ( '${name}', ${parseFloat(height)}, '${type}' )
+    // `;
+
+    const sql = `
+    INSERT INTO trees (name, height, type)
+    VALUES ( ?, ?, ? )
+    `;
+
+
+    connection.query(sql, [name, parseFloat(height), type], (err) => {
+        if (err) throw err;
+        res.redirect(302, 'http://localhost:8080/');
+    });
+
+
+    
+});
+
+app.post('/cut', (req, res) => {
+
+    const id = req.body.id;
+
+    // const sql = `
+    // DELETE FROM trees
+    // WHERE id = ${id}
+    // `;
+
+    const sql = `
+    DELETE FROM trees
+    WHERE id = ?
+    `;
+
+    connection.query(sql, [id], (err) => {
+        if (err) throw err;
+        res.redirect(302, 'http://localhost:8080/');
+    });
+
+});
+
+app.post('/water', (req, res) => {
+
+    const { id, height } = req.body;
+
+    const sql = `
+    UPDATE trees
+    SET height = ?
+    WHERE id = ?
+    `;
+
+
+    connection.query(sql, [parseFloat(height), id], (err) => {
+        if (err) throw err;
+        res.redirect(302, 'http://localhost:8080/');
+    });
+
+});
 
 
 app.listen(port, _ => {

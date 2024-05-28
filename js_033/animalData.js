@@ -18,3 +18,4 @@ const animalZoo = [
  
 // Sukurti serverį ir serveryje SSR būdu sugeneruoti žvėris. Žvėris atspausdinti naršyklėje.
 // (žvėris į json failą sudėkite naudodami seeder'į)
+// Prie sąrašo padaryti edit mygtuką, kuris attidaro naują puslapį su užpildyta žvėries forma.

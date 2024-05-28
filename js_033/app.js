@@ -111,6 +111,21 @@ app.get('/edit/:name', (req, res) => {
     
 });
 
+app.post('/updateanimal/:name', (req, res) => {
+
+    const name = req.body.name;
+    const species = req.body.species;
+    const age = parseInt(req.body.age);
+    let data = fs.readFileSync('./data/animals.json', 'utf8');
+    data = JSON.parse(data);
+    data = data.map(a => a.name === req.params.name ? { ...a, name, species, age } : a);
+    data = JSON.stringify(data);
+    fs.writeFileSync('./data/animals.json', data);
+
+
+    res.redirect(302, 'http://localhost/');
+});
+
 
 app.listen(port, _ => {
     console.log(`animals app listening on port ${port}`);

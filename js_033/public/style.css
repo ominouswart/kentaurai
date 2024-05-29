@@ -32,8 +32,14 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-left: 100px;
+  margin-left: 50px;
 }
 .color-in-list__color__id h4 {
   margin-top: 2px;
+}
+.color-in-list__buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }

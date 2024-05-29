@@ -44,7 +44,8 @@ app.get('/', (req, res) => {
         liHtml = liHtml.replace('{{NAME}}', li.name)
         .replace('{{SPECIES}}', li.species)
         .replace('{{AGE}}', li.age)
-        .replace('{{NAMETWO}}', li.name);
+        .replace('{{NAMETWO}}', li.name)
+        .replace('{{NAMETHREE}}', li.name);
         listItems += liHtml;
     });
     html = html.replace('{{LI}}', listItems);
@@ -119,6 +120,36 @@ app.post('/updateanimal/:name', (req, res) => {
     let data = fs.readFileSync('./data/animals.json', 'utf8');
     data = JSON.parse(data);
     data = data.map(a => a.name === req.params.name ? { ...a, name, species, age } : a);
+    data = JSON.stringify(data);
+    fs.writeFileSync('./data/animals.json', data);
+
+
+    res.redirect(302, 'http://localhost/');
+});
+
+app.get('/delete/:name', (req, res) => {
+
+    let data = fs.readFileSync('./data/animals.json', 'utf8');
+    data = JSON.parse(data);
+    const animalName = req.params.name;
+    console.log(`searching for: ${animalName}`);
+    const animal = data.find(a => a.name === animalName);
+    
+    let html = fs.readFileSync('./data/delete.html', 'utf8');
+    html = html
+    .replace('{{NAME}}', animal.name)
+    .replace('{{NAMETWO}}', animal.name);
+        
+    res.send(html);
+    
+});
+
+app.post('/destroy/:name', (req, res) => {
+
+
+    let data = fs.readFileSync('./data/animals.json', 'utf8');
+    data = JSON.parse(data);
+    data = data.filter(a => a.name !== req.params.name);
     data = JSON.stringify(data);
     fs.writeFileSync('./data/animals.json', data);
 

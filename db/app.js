@@ -20,30 +20,169 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-app.get('/book', (_, res) => {
+app.get('/book-left', (_, res) => {
 
     let html = fs.readFileSync('./data/book.html', 'utf8');
     const listItem = fs.readFileSync('./data/listItem2.html', 'utf8');
+    const phoneItem = fs.readFileSync('./data/phoneItem.html', 'utf8');
 
     const sql = `
-    SELECT c.id, name, number
+    SELECT c.id, n.id AS pid, c.name, n.number
     FROM clients AS c
-    INNER JOIN numbers AS n 
+    LEFT JOIN numbers AS n 
     ON c.id = n.client_id
+    ORDER BY c.name
     `;
 
 
     connection.query(sql, (err, rows) => {
         if (err) throw err;
       
-        console.log('Answer: ', rows);
+
+        const clients = [];
+
+        rows.forEach(client => {
+            const clientFromList = clients.find(c => c.id === client.id);
+            if (!clientFromList) {
+                clients.push({...client, number: [client.number], pid: [client.pid]});
+            } else {
+                clientFromList.number.push(client.number);
+                clientFromList.pid.push(client.pid);
+            }
+        });
+
+        console.log(clients);
         
         let listItems = '';
-        rows.forEach(client => {
+        clients.forEach(client => {
             let liHtml = listItem;
-            liHtml = liHtml.replace('{{ID}}', client.id)
+            let listItems2 = '';
+            client.pid.forEach((p, i) => {
+                let pItem = phoneItem;
+                pItem = pItem
+                .replace('{{PID}}', p)
+                .replace('{{PHONE}}', client.number[i]);
+                listItems2 += pItem;
+            });
+
+            liHtml = liHtml
+            .replace('{{ID}}', client.id)
             .replace('{{NAME}}', client.name)
-            .replace('{{PHONE}}', client.number)
+            .replace('{{PHONES}}', listItems2)
+            listItems += liHtml;
+        });
+        html = html.replace('{{LI}}', listItems);
+        res.send(html);
+      });
+
+});
+
+app.get('/book-right', (_, res) => {
+
+    let html = fs.readFileSync('./data/book.html', 'utf8');
+    const listItem = fs.readFileSync('./data/listItem2.html', 'utf8');
+    const phoneItem = fs.readFileSync('./data/phoneItem.html', 'utf8');
+
+    const sql = `
+    SELECT c.id, n.id AS pid, c.name, n.number
+    FROM clients AS c
+    RIGHT JOIN numbers AS n 
+    ON c.id = n.client_id
+    ORDER BY c.name
+    `;
+
+
+    connection.query(sql, (err, rows) => {
+        if (err) throw err;
+      
+
+        const clients = [];
+
+        rows.forEach(client => {
+            const clientFromList = clients.find(c => c.id === client.id);
+            if (!clientFromList) {
+                clients.push({...client, number: [client.number], pid: [client.pid]});
+            } else {
+                clientFromList.number.push(client.number);
+                clientFromList.pid.push(client.pid);
+            }
+        });
+
+        console.log(clients);
+        
+        let listItems = '';
+        clients.forEach(client => {
+            let liHtml = listItem;
+            let listItems2 = '';
+            client.pid.forEach((p, i) => {
+                let pItem = phoneItem;
+                pItem = pItem
+                .replace('{{PID}}', p)
+                .replace('{{PHONE}}', client.number[i]);
+                listItems2 += pItem;
+            });
+
+            liHtml = liHtml
+            .replace('{{ID}}', client.id)
+            .replace('{{NAME}}', client.name)
+            .replace('{{PHONES}}', listItems2)
+            listItems += liHtml;
+        });
+        html = html.replace('{{LI}}', listItems);
+        res.send(html);
+      });
+
+});
+
+app.get('/book', (_, res) => {
+
+    let html = fs.readFileSync('./data/book.html', 'utf8');
+    const listItem = fs.readFileSync('./data/listItem2.html', 'utf8');
+    const phoneItem = fs.readFileSync('./data/phoneItem.html', 'utf8');
+
+    const sql = `
+    SELECT c.id, n.id AS pid, c.name, n.number
+    FROM clients AS c
+    INNER JOIN numbers AS n 
+    ON c.id = n.client_id
+    ORDER BY c.name
+    `;
+
+
+    connection.query(sql, (err, rows) => {
+        if (err) throw err;
+      
+
+        const clients = [];
+
+        rows.forEach(client => {
+            const clientFromList = clients.find(c => c.id === client.id);
+            if (!clientFromList) {
+                clients.push({...client, number: [client.number], pid: [client.pid]});
+            } else {
+                clientFromList.number.push(client.number);
+                clientFromList.pid.push(client.pid);
+            }
+        });
+
+        console.log(clients);
+        
+        let listItems = '';
+        clients.forEach(client => {
+            let liHtml = listItem;
+            let listItems2 = '';
+            client.pid.forEach((p, i) => {
+                let pItem = phoneItem;
+                pItem = pItem
+                .replace('{{PID}}', p)
+                .replace('{{PHONE}}', client.number[i]);
+                listItems2 += pItem;
+            });
+
+            liHtml = liHtml
+            .replace('{{ID}}', client.id)
+            .replace('{{NAME}}', client.name)
+            .replace('{{PHONES}}', listItems2)
             listItems += liHtml;
         });
         html = html.replace('{{LI}}', listItems);

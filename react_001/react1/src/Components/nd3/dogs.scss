@@ -1,0 +1,37 @@
+.dog-sq {
+    width: 200px;
+    height: 50px;
+    margin: 20px 10px;
+    border: 1px solid white;
+}
+
+.dog-ci {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    margin: 20px 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+.mrg {
+    margin-top: 300px;
+}
+
+.dog-gr {
+    width: 200px;
+    height: 150px;
+    margin: 20px 10px;
+    border: 1px solid white;
+    background-color: green;
+}
+
+.dog-re {
+    width: 200px;
+    height: 150px;
+    margin: 20px 10px;
+    border: 1px solid white;
+    background-color: red;
+}

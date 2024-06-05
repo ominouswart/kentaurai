@@ -1,100 +1,77 @@
 import { useRef, useState } from 'react';
 import './App.css';
-import './buttons.scss';
-import randomColor from './Functions/randColor';
+import './Components/nd4/trees.scss';
 
 function App() {
 
-    const [count, setCount] = useState(100);
-    const [figure, setFigure] = useState('square');
-    const [sq, setSq] = useState([]);
-
-
-    const add1 = _ => {
-        setCount(c => c + 1);
-    }
-
-    const minus1 = _ => {
-        setCount(c => c - 1);
-    }
-
-    const reset = _ => {
-        setCount(0);
-    }
-
-    const big = _ => {
-        setCount(c => c * c);
-    }
-
-    const changeFigure = _ => {
-        setFigure(f => f === 'square' ? 'circle' : 'square')
-    }
-
     const id = useRef(1);
 
-    const addSq = _ => {
-        setSq(a => [...a, {
+    const [oak, setOak] = useState([]);
+    const [birch, setBirch] = useState([]);
+    const [maple, setMaple] = useState([]);
+
+    const oakClick = _ => {
+        setOak(o => [...o,{ 
             id: id.current++,
-            color: randomColor()    
+            treeName: 'Naujas ąžuolas'
         }]);
-        // setSq(a => {
-        //     const aCopy = [...a];
-        //     aCopy.push(id.current++);
-        //     return aCopy;
-        // });
     }
 
-    const removeSqEnd = _ => {
-        setSq(a => a.filter((s, i) => i !== a.length - 1));
+    const birchClick = _ => {
+        setBirch(b => [...b,{ 
+            id: id.current++,
+            treeName: 'Naujas beržas'
+        }]);
     }
 
-    const removeSqStart = _ => {
-        setSq(a => a.filter((s, i) => i !== 0));
+    const mapleClick = _ => {
+        setMaple(m => [...m,{ 
+            id: id.current++,
+            treeName: 'Naujas uosis'
+        }]);
     }
 
-    return (
-        <div className="App">
-            <header className="App-header">
-                <h1>
-                    <div
-                        onClick={changeFigure}
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            cursor: 'pointer',
-                            width: '200px',
-                            height: '200px',
-                            transition: 'all 0.5s',
-                            backgroundColor: figure === 'square' ? 'skyblue' : 'crimson',
-                            borderRadius: figure === 'square' ? null : '50%'
-                        }}>{count}</div></h1>
 
-                        <div className='sq-bin'>
-                            {
-                                sq.map((s) => 
-                                <div key={s.id} className='sq' style={{
-                                    backgroundColor: s.color + '66',
-                                    borderColor: s.color
-                                }}>
-                                    {s.id}
-                                    </div>)
-                            }
-                        </div>
-                <div className='buttons'>
-                    <button type='button' className='green' onClick={add1}>+1</button>
-                    <button type='button' className='red' onClick={minus1}>-1</button>
-                    <button type='button' className='white' onClick={reset}>0</button>
-                    <button type='button' className='yellow' onClick={big}>**</button>
-                    <button type='button' className='green' onClick={addSq}>Add</button>
-                    <button type='button' className='green' onClick={removeSqStart}>Remove First</button>
-                    <button type='button' className='green' onClick={removeSqEnd}>Remove Last</button>
-                </div>
+  return (
+    <div className="App">
+      <header className="App-header">
+        <div className='big-sq'>
+            <div className="smaller-sq">
+                {
+                    oak.map((o) =>
+                    <div className='tree-divs' key={o.id}>{o.treeName}
+                    </div>
+                )
+                }
+            </div>
 
+            <div className="smaller-sq">
+            {
+                    birch.map((b) =>
+                    <div className='tree-divs' key={b.id}>{b.treeName}
+                    </div>
+                )
+                }
+            </div>
 
-            </header>
+            <div className="smaller-sq">
+            {
+                    maple.map((m) =>
+                    <div className='tree-divs' key={m.id}>{m.treeName}
+                    </div>
+                )
+                }
+            </div>
+
         </div>
-    );
+        <div className="btn-container">
+            <button className='btn' type='button' onClick={oakClick}>ąžuolas</button>
+            <button className='btn' type='button' onClick={birchClick}>beržas</button>
+            <button className='btn' type='button' onClick={mapleClick}>uosis</button>
+        </div>
+      </header>
+    </div>
+  );
 }
 
 export default App;

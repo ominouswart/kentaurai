@@ -1,77 +1,53 @@
-import { useRef, useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
-import './Components/nd4/trees.scss';
+import './buttons.scss';
+import Buttons from './Components/005/Buttons';
+import Counter from './Components/005/Counter';
+import randomColor from './Functions/randColor';
+import SqBin from './Components/005/SqBin';
+import SqButtons from './Components/005/SqButtons';
+import Parent from './Components/005/Parent';
+import Link from './Components/005/Link';
+
 
 function App() {
 
+    const [counter, setCounter] = useState(50);
+    const [sq, setSq] = useState([]);
+
     const id = useRef(1);
 
-    const [oak, setOak] = useState([]);
-    const [birch, setBirch] = useState([]);
-    const [maple, setMaple] = useState([]);
-
-    const oakClick = _ => {
-        setOak(o => [...o,{ 
+    const addSq = _ => {
+        setSq(a => [...a, {
             id: id.current++,
-            treeName: 'Naujas ąžuolas'
+            color: randomColor(),
+            rotate: 0
         }]);
     }
 
-    const birchClick = _ => {
-        setBirch(b => [...b,{ 
-            id: id.current++,
-            treeName: 'Naujas beržas'
-        }]);
-    }
-
-    const mapleClick = _ => {
-        setMaple(m => [...m,{ 
-            id: id.current++,
-            treeName: 'Naujas uosis'
-        }]);
+    const rotateSq = id => {
+        setSq(a => a.map(s => s.id === id ? { ...s, rotate: s.rotate + 15 }: s));
     }
 
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div className='big-sq'>
-            <div className="smaller-sq">
-                {
-                    oak.map((o) =>
-                    <div className='tree-divs' key={o.id}>{o.treeName}
-                    </div>
-                )
-                }
-            </div>
-
-            <div className="smaller-sq">
-            {
-                    birch.map((b) =>
-                    <div className='tree-divs' key={b.id}>{b.treeName}
-                    </div>
-                )
-                }
-            </div>
-
-            <div className="smaller-sq">
-            {
-                    maple.map((m) =>
-                    <div className='tree-divs' key={m.id}>{m.treeName}
-                    </div>
-                )
-                }
-            </div>
-
+    return (
+        <div className="App">
+            <header className="App-header">
+                <Counter counter={counter} />
+                <Buttons setCounter={setCounter} />
+                <SqBin sq={sq} rotateSq={rotateSq} />
+                <SqButtons addSq={addSq} />
+                <Parent>
+                    <h2>I'm here!</h2>
+                </Parent>
+                <Link to='https://google.com'>
+                <div>Go to GOOGLE<span>------</span></div>
+                <div>Run to GOOGLE</div>
+                <div>Don't go to GOOGLE</div>
+                </Link>
+            </header>
         </div>
-        <div className="btn-container">
-            <button className='btn' type='button' onClick={oakClick}>ąžuolas</button>
-            <button className='btn' type='button' onClick={birchClick}>beržas</button>
-            <button className='btn' type='button' onClick={mapleClick}>uosis</button>
-        </div>
-      </header>
-    </div>
-  );
+    );
 }
 
 export default App;

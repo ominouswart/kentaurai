@@ -29,6 +29,7 @@
     font-size: 20px;
     background-color: rgba(172, 255, 47, 0.493);
     border-color: chartreuse;
+
     &:hover {
         cursor: pointer;
         background-color: darken(rgba(172, 255, 47, 0.493), 20%);
@@ -43,4 +44,47 @@
     margin: 5px 0;
     border: 2px solid rgb(31, 221, 31);
     background-color: rgb(5, 95, 5);
+}
+
+
+// diff version
+
+.trees-bin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: transparent;
+
+    .tree-bin {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+        width: 300px;
+        height: 100vh;
+        background-color: #fff;
+        .top {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            .tree {
+                width: 150px;
+                height: 50px;
+                background-color: #4caf50;
+                border-radius: 10px;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .bottom {
+            display: flex;
+        }
+    }
 }

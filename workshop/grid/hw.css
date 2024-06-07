@@ -5,25 +5,75 @@
     border-radius: 5px;
     display: grid;
     gap: 10px;
-    grid-template-columns: repeat(7, 0.5fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: 1fr repeat(10, 0.5fr);
+    grid-template-rows: 1fr repeat(2, 1fr) 1.5fr;
 }
 
 .red1 {
-    grid-column: span 2;
+    grid-column: span 6;
 }
 
 .blue1 {
-    grid-column: span 2;
+    grid-column: span 4;
 }
 
 .white1 {
     grid-row: span 2;
+    grid-row: span 0.5;
 }
 
 .white2 {
+    grid-column: span 8;
+}
+
+.white3 {
     grid-column: span 2;
 }
+
+.blue2 {
+    grid-column: span 0.5;
+}
+
+.yellow2 {
+    grid-column: span 4;
+}
+
+.blue3 {
+    grid-column: span 3;
+    grid-row: span 1;
+}
+
+.red2 {
+    grid-column: span 2;
+}
+
+.inside-inner {
+    grid-column: span 10;
+    background-color: black;
+    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(6, 0.5fr);
+    grid-template-rows: 1fr 1fr;
+}
+
+.red3 {
+    grid-column: span 3;
+    grid-row: span 2;
+}
+
+.white4 {
+    grid-row: span 2;
+    grid-column: span 2;
+}
+
+.yellow4 {
+    grid-row: span 1;
+}
+
+.yellow3 {
+    grid-column: span 0.5;
+}
+
 
 .yellow {
     background-color: rgb(240, 217, 17);

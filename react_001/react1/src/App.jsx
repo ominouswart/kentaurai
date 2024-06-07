@@ -1,40 +1,66 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
+import './Components/nd5/Avys.scss';
+import AvisId from './Components/nd5/Avys';
+import KarveId from './Components/nd5/Karve';
 
+const animals = ['karves', 'avys'];
 
+function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function App() {
 
-    const id = useRef(1);
+    const [avisId, setAvisId] = useState([]);
+    const [karveId, setKarveId] = useState([]);
 
-    const [sq, setSq] = useState([]);
+    // const aviuId = _ => {
+    //     const newId = AvisId();
+    //     setAvisId([...avisId, newId]);
+    // }
 
-    const [count, setCount] = useState([]);
+    // const karviuId = _ => {
+    //     const newId = KarveId();
+    //     setKarveId([...karveId, newId]);
+    // }
 
-    const addSq = _ => {
-        setSq(s => [...s, {
-            s: sq,
-            id: id.current++
-        }]);
+    const fester = _ => {
+        animals.forEach(a => {
+            const randomNumber = rand(5, 10);
+
+            if (a === 'avys') {
+                const newAvis = Array.from({ length: randomNumber }, _ => AvisId());
+                setAvisId(a => [...a, ...newAvis]);
+            } else if (a === 'karves') {
+                const newKarves = Array.from({ length: randomNumber }, _ => KarveId());
+                setKarveId(k => [...k, ...newKarves]);
+            }
+        });
     }
 
-    const plusOne = id => {
-        setCount(c );
-    }
+
 
     return (
         <div className="App">
             <header className="App-header">
-                <button type='button' onClick={addSq}>Prideti</button>
-                <div className="black-square-cnt">
-                    {
-                        sq.map(s =>
-                            <div className='black-square' key={s.id} style={{ width: '100px', height: '100px', backgroundColor: 'black', margin: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', flexDirection: 'column' }}>
-                                <b>{count}</b>
-                                <button type='button' onClick={plusOne}>+</button>
-                            </div>
-                        )
-                    }
+                <div className="btn">
+                    <button type='button' className='green' onClick={fester}>į ganyklą</button>
+                </div>
+                <div className="container">
+
+                    <div className="innerContainer border-con">
+                        <h2>Karves</h2>
+                        {karveId.map((id, i) => (
+                            <div key={i} className='karve'>{id}</div>
+                        ))}
+                    </div>
+                    <div className="innerContainer">
+                        <h2>Avys</h2>
+                        {avisId.map((id, i) => (
+                            <div key={i} className='avis'>{id}</div>
+                        ))}
+                    </div>
                 </div>
             </header>
         </div>

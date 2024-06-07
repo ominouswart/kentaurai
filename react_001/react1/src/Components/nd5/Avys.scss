@@ -8,7 +8,12 @@
 }
 
 .innerContainer {
-    width: 50%
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .border-con {
@@ -43,4 +48,24 @@
             color: darken(white, 5%);
         }
     }
+}
+
+.avis {
+    border: 2px solid brown;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.karve {
+    border: 2px solid burlywood;
+    width: 150px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

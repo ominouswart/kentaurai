@@ -1,50 +1,41 @@
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import './App.css';
-import './buttons.scss';
-import Buttons from './Components/005/Buttons';
-import Counter from './Components/005/Counter';
-import randomColor from './Functions/randColor';
-import SqBin from './Components/005/SqBin';
-import SqButtons from './Components/005/SqButtons';
-import Parent from './Components/005/Parent';
-import Link from './Components/005/Link';
+
 
 
 function App() {
 
-    const [counter, setCounter] = useState(50);
-    const [sq, setSq] = useState([]);
-
     const id = useRef(1);
 
+    const [sq, setSq] = useState([]);
+
+    const [count, setCount] = useState([]);
+
     const addSq = _ => {
-        setSq(a => [...a, {
-            id: id.current++,
-            color: randomColor(),
-            rotate: 0
+        setSq(s => [...s, {
+            s: sq,
+            id: id.current++
         }]);
     }
 
-    const rotateSq = id => {
-        setSq(a => a.map(s => s.id === id ? { ...s, rotate: s.rotate + 15 }: s));
+    const plusOne = id => {
+        setCount(c );
     }
-
 
     return (
         <div className="App">
             <header className="App-header">
-                <Counter counter={counter} />
-                <Buttons setCounter={setCounter} />
-                <SqBin sq={sq} rotateSq={rotateSq} />
-                <SqButtons addSq={addSq} />
-                <Parent>
-                    <h2>I'm here!</h2>
-                </Parent>
-                <Link to='https://google.com'>
-                <div>Go to GOOGLE<span>------</span></div>
-                <div>Run to GOOGLE</div>
-                <div>Don't go to GOOGLE</div>
-                </Link>
+                <button type='button' onClick={addSq}>Prideti</button>
+                <div className="black-square-cnt">
+                    {
+                        sq.map(s =>
+                            <div className='black-square' key={s.id} style={{ width: '100px', height: '100px', backgroundColor: 'black', margin: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', flexDirection: 'column' }}>
+                                <b>{count}</b>
+                                <button type='button' onClick={plusOne}>+</button>
+                            </div>
+                        )
+                    }
+                </div>
             </header>
         </div>
     );

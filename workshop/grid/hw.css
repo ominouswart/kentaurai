@@ -1,0 +1,42 @@
+.container {
+    background-color: black;
+    width: 500px;
+    height: 500px;
+    border-radius: 5px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(7, 0.5fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.red1 {
+    grid-column: span 2;
+}
+
+.blue1 {
+    grid-column: span 2;
+}
+
+.white1 {
+    grid-row: span 2;
+}
+
+.white2 {
+    grid-column: span 2;
+}
+
+.yellow {
+    background-color: rgb(240, 217, 17);
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: rgb(59, 146, 218);
+}
+
+.white {
+    background-color: white;
+}

@@ -15,19 +15,10 @@ function App() {
     const [avisId, setAvisId] = useState([]);
     const [karveId, setKarveId] = useState([]);
 
-    // const aviuId = _ => {
-    //     const newId = AvisId();
-    //     setAvisId([...avisId, newId]);
-    // }
-
-    // const karviuId = _ => {
-    //     const newId = KarveId();
-    //     setKarveId([...karveId, newId]);
-    // }
 
     const fester = _ => {
         animals.forEach(a => {
-            const randomNumber = rand(5, 10);
+            const randomNumber = rand(5, 20);
 
             if (a === 'avys') {
                 const newAvis = Array.from({ length: randomNumber }, _ => AvisId());
@@ -39,6 +30,29 @@ function App() {
         });
     }
 
+    const moveKarve = id => {
+        setKarveId(kar => {
+            const karveMove = kar.find(k => k.id === id);
+            if(karveMove) {
+                setAvisId(a => [...a, karveMove]);
+                return karveId.filter(k => k.id !== id);
+            }
+            return karveId;
+        });
+    }
+
+    const moveAvis = id => {
+        setAvisId(av => {
+            const avisMove = av.find(a => a.id === id);
+            if(avisMove) {
+                setKarveId(k => [...k, avisMove]);
+                return avisId.filter(a => a.id !== id);
+            }
+            return avisId;
+        });
+    }
+
+    console.log(karveId);
 
 
     return (
@@ -48,17 +62,18 @@ function App() {
                     <button type='button' className='green' onClick={fester}>į ganyklą</button>
                 </div>
                 <div className="container">
-
+                <h2>Karves {karveId.length}</h2>
                     <div className="innerContainer border-con">
-                        <h2>Karves</h2>
-                        {karveId.map((id, i) => (
-                            <div key={i} className='karve'>{id}</div>
+                        
+                        {karveId.map((k) => (
+                            <div key={k.id} className={`${k.type}`} onClick={_ => moveKarve(k.id)}>{k.id}</div>
                         ))}
                     </div>
+                    <h2>Avys {avisId.length}</h2>
                     <div className="innerContainer">
-                        <h2>Avys</h2>
-                        {avisId.map((id, i) => (
-                            <div key={i} className='avis'>{id}</div>
+                        
+                        {avisId.map((a) => (
+                            <div key={a.id} className={`${a.type}`} onClick={_ => moveAvis(a.id)} >{a.id}</div>
                         ))}
                     </div>
                 </div>

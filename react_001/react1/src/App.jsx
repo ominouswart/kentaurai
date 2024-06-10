@@ -1,85 +1,59 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
-import './Components/nd5/Avys.scss';
-import AvisId from './Components/nd5/Avys';
-import KarveId from './Components/nd5/Karve';
+import './buttons.scss';
 
-const animals = ['karves', 'avys'];
 
-function rand(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 function App() {
 
-    const [avisId, setAvisId] = useState([]);
-    const [karveId, setKarveId] = useState([]);
+    const [count2, setCount2] = useState(0);
 
+    const [count1, setCount1] = useState(0);
 
-    const fester = _ => {
-        animals.forEach(a => {
-            const randomNumber = rand(5, 20);
+    const greenLoaded = useRef(false);
 
-            if (a === 'avys') {
-                const newAvis = Array.from({ length: randomNumber }, _ => AvisId());
-                setAvisId(a => [...a, ...newAvis]);
-            } else if (a === 'karves') {
-                const newKarves = Array.from({ length: randomNumber }, _ => KarveId());
-                setKarveId(k => [...k, ...newKarves]);
-            }
-        });
+    // console.log('OUTSIDE USE EFFECT');
+
+    useEffect(_ => {
+        if (!greenLoaded.current) {
+            greenLoaded.current = true;
+            return;
+        }
+        console.log('refresh by green!', count1);
+    }, [count1]);
+
+    useEffect(_ => {
+        console.log('refresh by yellow!');
+    }, [count2] );
+
+    useEffect(_ => {
+        console.log('refresh by yellow or green');
+    }, [count1, count2]);
+
+    const clickGreen = _ => {
+        setCount1(c => c + 1);
+
     }
 
-    const moveKarve = id => {
-        setKarveId(kar => {
-            const karveMove = kar.find(k => k.id === id);
-            if(karveMove) {
-                setAvisId(a => [...a, karveMove]);
-                return karveId.filter(k => k.id !== id);
-            }
-            return karveId;
-        });
+    const clickYellow = _ => {
+        setCount2(c => c + 1);
+        
     }
 
-    const moveAvis = id => {
-        setAvisId(av => {
-            const avisMove = av.find(a => a.id === id);
-            if(avisMove) {
-                setKarveId(k => [...k, avisMove]);
-                return avisId.filter(a => a.id !== id);
-            }
-            return avisId;
-        });
-    }
+    
+ 
 
-    console.log(karveId);
-
-
-    return (
-        <div className="App">
-            <header className="App-header">
-                <div className="btn">
-                    <button type='button' className='green' onClick={fester}>į ganyklą</button>
-                </div>
-                <div className="container">
-                <h2>Karves {karveId.length}</h2>
-                    <div className="innerContainer border-con">
-                        
-                        {karveId.map((k) => (
-                            <div key={k.id} className={`${k.type}`} onClick={_ => moveKarve(k.id)}>{k.id}</div>
-                        ))}
-                    </div>
-                    <h2>Avys {avisId.length}</h2>
-                    <div className="innerContainer">
-                        
-                        {avisId.map((a) => (
-                            <div key={a.id} className={`${a.type}`} onClick={_ => moveAvis(a.id)} >{a.id}</div>
-                        ))}
-                    </div>
-                </div>
-            </header>
-        </div>
-    );
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>Use effect</h1>
+        <div className="buttons">
+                <button type='button' className='green' onClick={clickGreen}>{count1}</button>
+                <button type='button' className='yellow' onClick={clickYellow}>{count2}</button>
+            </div>
+      </header>
+    </div>
+  );
 }
 
 export default App;

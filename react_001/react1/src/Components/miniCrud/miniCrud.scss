@@ -1,0 +1,25 @@
+.cont {
+    width: 90%;
+    display: flex;
+    background-color: wheat;
+    justify-content: space-around;
+}
+
+.inCont h2 {
+    color: black;
+    border-bottom: 5px solid black;
+}
+
+.inCont ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
+    color: black;
+    font-weight: 500;
+}
+
+.inCont ul li {
+    border-bottom: 2px dashed black;
+    display: flex;
+}

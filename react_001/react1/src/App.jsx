@@ -9,11 +9,12 @@ const animals = ['Avis', 'Antis', 'Antilope'];
 
 function App() {
 
-    const keyProp = rand(1000000, 9999999);
-
     const [animal, setAnimal] = useState('Avis');
     const [weight, setWeight] = useState('');
     const [list, setList] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentAnimal, setCurrentAnimal] = useState(null);
+    const [editWeight, setEditWeight] = useState('');
 
     useEffect(_ => {
 
@@ -27,10 +28,29 @@ function App() {
 
     const addToList = _ => {
         setList(l => [{ id: rand(1000000, 9999999), name: animal, weight: weight }, ...l]);
+        setWeight('');
     }
 
     const delAnimal = id => {
         setList(list.filter(l => l.id !== id));
+    }
+
+    const openEditModal = (e, a) => {
+        e.stopPropagation();
+        setCurrentAnimal(a);
+        setEditWeight('');
+        setIsModalOpen(true);
+    }
+
+    const handleEdit = _ => {
+        setList(list.map(l => l.id === currentAnimal.id ? { ...l, weight: editWeight } : l));
+        setIsModalOpen(false);
+        setCurrentAnimal(null);
+    }
+
+    const closeModal = _ => {
+        setIsModalOpen(false);
+        setCurrentAnimal(null);
     }
 
 
@@ -59,10 +79,11 @@ function App() {
                                     {
                                         list.filter(l => l.name === a).map(l => (
 
-                                            <li key={l.id}>Weight: {l.weight} KG
-                                            <button style={{marginLeft: '30px'}} type='button' className='red' onClick={_ => delAnimal(l.id)}>X</button>
+                                            <li key={l.id}>
+                                                <span onClick={(e) => openEditModal(e, l)}>Weight: {l.weight} KG</span>
+                                                <button style={{ marginLeft: '30px' }} type='button' className='red' onClick={_ => delAnimal(l.id)}>X</button>
                                             </li>
-                                            
+
                                         ))
                                     }
                                 </ul>
@@ -71,6 +92,23 @@ function App() {
                     }
                 </div>
             </header>
+            {
+                isModalOpen && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <span className="close" onClick={closeModal}>&times;</span>
+                            <h2>Redaguoti</h2>
+                            <b>{currentAnimal.name} {currentAnimal.weight} KG</b>
+                            <input
+                                type="number"
+                                value={editWeight}
+                                onChange={e => setEditWeight(Number(e.target.value))}
+                            />
+                            <button type='button' className='green' onClick={handleEdit}>Issaugoti</button>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     );
 }

@@ -1,17 +1,13 @@
 import { useState } from 'react';
 import { rbc, rbu } from '../Styles/svg';
 
-export default function Create({setCreate}) {
+export default function Create({create, setStore, setCreate}) {
 
-    const dv = {
-        shape: 'square',
-        color: '#000000',
-        range: 1
-    }
+    
 
-    const [shape, setShape] = useState(dv.shape);
-    const [color, SetColor] = useState(dv.color);
-    const [range, setRange] = useState(dv.range);
+    const [shape, setShape] = useState(create.shape);
+    const [color, SetColor] = useState(create.color);
+    const [range, setRange] = useState(create.range);
 
 
     const handleShape = e => {
@@ -19,14 +15,14 @@ export default function Create({setCreate}) {
     }
 
     const save = _ => {
-        setCreate({
+        setStore({
             shape,
             color,
             range
         });
-        setShape(dv.shape);
-        SetColor(dv.color);
-        setRange(dv.range);
+        setShape(create.shape);
+        SetColor(create.color);
+        setRange(create.range);
     }
 
     return (
@@ -35,7 +31,7 @@ export default function Create({setCreate}) {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">Add new color</h5>
-                        <button type="button" className="btn-close"></button>
+                        <button type="button" className="btn-close" onClick={_ => setCreate(null)}></button>
                     </div>
                     <div className="modal-body">
                         <div className="m-2">
@@ -57,8 +53,8 @@ export default function Create({setCreate}) {
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="red">Close</button>
-                        <button type="button" className="green" onClick={save}>Save changes</button>
+                        <button type="button" className="red" onClick={_ => setCreate(null)}>Close</button>
+                        <button type="button" className="green" onClick={save}>Add</button>
                     </div>
                 </div>
             </div>

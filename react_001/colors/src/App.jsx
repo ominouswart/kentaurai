@@ -20,6 +20,9 @@ const KEY = 'colors';
 
 export default function App() {
 
+
+  const [route, setRoute] = useState('landing');
+
   const [colors, setColors] = useState(null);
   const [refresh, setRefresh] = useState(Date.now());
   const [create, setCreate] = useState(null);
@@ -94,6 +97,19 @@ export default function App() {
     setRefresh(Date.now());
   }, [update, getTitle, addMessage]);
 
+
+  if (route === 'landing') {
+    return (
+    <div className="landing">
+      <div className="bin">
+        <h1>Landing page</h1>
+        <div className="link" onClick={_ => setRoute('colors')}>go to colors</div>
+      </div>
+    </div>
+  )}
+
+
+  if (route === 'colors') {
   return (
     <>
     <div className="container">
@@ -101,6 +117,7 @@ export default function App() {
         <div className="col">
           <div className="buttons">
             <button type='button' className='blue' onClick={_ => setCreate(dv)}>Add new color</button>
+            <button type='button' className='white' onClick={_ => setRoute('landing')}>Go back to landing</button>
           </div>
         </div>
       </div>
@@ -122,4 +139,5 @@ export default function App() {
     <Messages msg={msg} remMessage={remMessage}/>
     </>
   );
+}
 }

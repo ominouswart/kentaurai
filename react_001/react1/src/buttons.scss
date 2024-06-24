@@ -51,8 +51,14 @@ button {
     }
 }
 
-.buttons {
+.header {
     display: flex;
     margin: 20px;
     padding: 20px;
+    justify-content: space-between;
+}
+
+.halfhalf {
+    display: flex;
+    justify-content: space-between;
 }

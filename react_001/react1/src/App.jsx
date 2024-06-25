@@ -9,6 +9,7 @@ import './buttons.scss';
 import Edit from './Components/MovieList/Edit';
 import CategoryList from './Components/MovieList/CategoryList';
 import CreateCategory from './Components/MovieList/CreateCategory';
+import EditCategory from './Components/MovieList/EditCategory'; 
 
 const MOV = 'movies';
 const CAT = 'categories';
@@ -26,7 +27,8 @@ function App() {
     const [createCategory, setCreateCategory] = useState(false);
     const [storeCategory, setStoreCategory] = useState(null);
     const [removeCategory, setRemoveCategory] = useState(null);
-    const [editCategory, setEditCategory] = useState()
+    const [editCategory, setEditCategory] = useState(null);
+    const [updateCategory, setUpdateCategory] = useState(null);
 
     useEffect(() => {
         const loadMovies = () => {
@@ -38,7 +40,7 @@ function App() {
 
     useEffect(() => {
         const loadCategories = () => {
-            const categoryData = storage.lsRead(CAT);
+            const categoryData = storage.lsRead(CAT) || [];
             setCategories(categoryData);
         };
         loadCategories();
@@ -84,6 +86,14 @@ function App() {
         }
     }, [removeCategory])
 
+    useEffect(() => {
+        if (updateCategory !== null) {
+            storage.lsEdit(CAT, updateCategory, updateCategory.id);
+            setUpdateCategory(null);
+            setRefresh(Date.now());
+        }
+    }, [updateCategory]);
+
     const handleAddNewMovie = () => {
         setCreateMovie(true);
     }
@@ -109,7 +119,7 @@ function App() {
                     </div>
                     <div className="col-md-4">
                         
-                        <CategoryList categories={categories} setRemoveCategory={setRemoveCategory} />
+                        <CategoryList categories={categories} setRemoveCategory={setRemoveCategory} setEditCategory={setEditCategory}/>
                     </div>
                 </div>
 
@@ -121,10 +131,13 @@ function App() {
                 removeMovie && <Delete setRemoveMovie={setRemoveMovie} removeMovie={removeMovie} setDestroyMovie={setDestroyMovie} />
             }
             {
-                editMovie && <Edit editMovie={editMovie} setUpdateMovie={setUpdateMovie} setEditMovie={setEditMovie} />
+                editMovie && <Edit editMovie={editMovie} setUpdateMovie={setUpdateMovie} setEditMovie={setEditMovie} categories={categories}/>
             }
             {
                 createCategory && <CreateCategory setCreateCategory={setCreateCategory} setStoreCategory={setStoreCategory} />
+            }
+            {
+                editCategory && <EditCategory setEditCategory={setEditCategory} setUpdateCategory={setUpdateCategory} editCategory={editCategory}/>
             }
         </>
     );

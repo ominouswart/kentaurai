@@ -40,7 +40,7 @@ export default function Create({ setStoreMovie, setCreateMovie, categories }) {
                             <select className="form-control" onChange={e => setCategId(e.target.value)} value={categId}>
                                 <option value="">Select category</option>
                                 {categories.map(category => (
-                                    <option key={category.id} value={category.id}>{category.name}</option>
+                                    <option key={category.id} value={category.name}>{category.name}</option>
                                 ))}
                             </select>
                         </div>

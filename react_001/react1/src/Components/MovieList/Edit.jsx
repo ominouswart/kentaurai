@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
  
 export default function Edit({editMovie, setUpdateMovie, setEditMovie, categories}) {
  
@@ -8,6 +8,15 @@ export default function Edit({editMovie, setUpdateMovie, setEditMovie, categorie
     const [categId, setCategId] = useState(editMovie.categId);
     const [rating, setRating] = useState(editMovie.rating);
 
+    useEffect(_ => {
+        if (editMovie) {
+            setTitle(editMovie.title || '');
+            setYear(editMovie.year || '');
+            setCategId(editMovie.categId || '');
+            setRating(editMovie.rating || 0);
+        }
+    }, [editMovie])
+
     const save = () => {
         setUpdateMovie({
             ...editMovie,
@@ -16,7 +25,7 @@ export default function Edit({editMovie, setUpdateMovie, setEditMovie, categorie
             categId,
             rating
         });
-        setEditMovie(false);
+        setEditMovie(null);
     }
 
  
@@ -27,7 +36,7 @@ export default function Edit({editMovie, setUpdateMovie, setEditMovie, categorie
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">Edit movie</h5>
-                        <button type="button" className="btn-close" onClick={() => setEditMovie(false)}></button>
+                        <button type="button" className="btn-close" onClick={() => setEditMovie(null)}></button>
                     </div>
                     <div className="modal-body">
                         <div className="m-2">

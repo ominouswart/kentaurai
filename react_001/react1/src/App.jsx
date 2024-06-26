@@ -1,43 +1,54 @@
+import { useReducer, useState } from 'react';
 import './App.css';
 import './buttons.scss';
-import Button1 from './Components/014/Button1';
-import Button2 from './Components/014/Button2';
-import Counter from './Components/014/Counter';
-import Buttons from './Components/014/Buttons';
-import './Components/ws/figures.scss';
-import Figure from './Components/014/Figure';
-
+import countReducer from './Components/015/countReducer';
+import * as A from './Actions/counterActions';
 
 function App() {
 
-    return (
-        <div className="App">
-            <header className="App-header">
-                <h1>CONTEXT II</h1>
+    const [count1, setCount1] = useState(0);
+    const [count2, dispatchCount2] = useReducer(countReducer, 0);
+    const [range, setRange] = useState(0);
 
-                <div className="buttons">
-                    <Counter>
-                        <Button1 />
-                        <Buttons.Blue />
-                        <Buttons.Yellow />
-                    </Counter>
+    // const add1 = _ => {
+    //     const action = {
+    //         type: T.ADD_1
+    //     };
+    //     dispatchCount2(action);
+    // }
 
-                    <Counter>
-                        <Button2 />
-                    </Counter>
-                </div>
-                <Figure color='crimson'>
-                    <div className="square"></div>
-                </Figure>
+    // const rem1 = _ => {
+    //     const action = {
+    //         type: T.REM_1
+    //     };
+    //     dispatchCount2(action);
+    // }
 
-                <Figure color='skyblue'>
-                    <div className="circle"></div>
-                </Figure>
+    // const addRange = _ => {
+    //     const action = {
+    //         type: T.ADD_RANGE,
+    //         payload: range
+    //     };
+    //     dispatchCount2(action);
+    // }
 
 
-            </header>
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>State: {count1} Reducer: {count2} </h1>
+        <div className="button">
+            <button type='button' className='green' onClick={_ => setCount1(c => c + 1)}>Add 1 (with state)</button>
+            <button type='button' className='white' onClick={_ => dispatchCount2(A.add1())}>Add 1 (with reducer)</button>
+            <button type='button' className='yellow' onClick={_ => dispatchCount2(A.rem1())}>Minus 1 (with reducer)</button>
         </div>
-    );
+        <div className="button">
+        <button type='buttons' className='blue' onClick={_ => dispatchCount2(A.addRange(range))}>Add {range} (with reducer)</button>
+        <input type="range" min={-99} max={99} step={1} value={range} onChange={e => setRange(+e.target.value)}/>
+        </div>
+      </header>
+    </div>
+  );
 }
 
 export default App;

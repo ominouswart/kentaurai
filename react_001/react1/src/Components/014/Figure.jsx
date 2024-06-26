@@ -1,9 +1,13 @@
-export default function Figure({ children }) {
+const WithColor = Component => color => <Component color={color} />
+
+export default function Figure({ children, color }) {
 
 
     return (
         <>
-            {children}
+            {
+                WithColor(children.type)({color})
+            }
         </>
     );
 }

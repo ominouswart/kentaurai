@@ -25,24 +25,38 @@ app.get("/", (_, res) => {
   res.send("Colors Server");
 });
 
-app.post('/colors', (req, res) => {
- 
-    let { color, range, shape } = req.body;
- 
-    // sanitization
-    range = Math.min(parseInt(range), 10);
-    isNaN(range) && (range = 1);
-    !['square', 'circle', 'rounded', 'triangle'].includes(shape) && (shape = 'square');
-    !/^#[0-9A-F]{6}$/i.test(color) && (color = '#cccccc')
- 
-    const sql = `
+app.get("/colors", (req, res) => {
+  const sql = `
+  SELECT *
+  FROM colors
+  ORDER BY id DESC
+  `;
+  connection.query(sql, (err, rows) => {
+    if (err) throw err;
+    res.json(rows);
+  });
+});
+
+app.post("/colors", (req, res) => {
+  let { color, range, shape } = req.body;
+
+  // sanitization
+  range = Math.min(parseInt(range), 10);
+  isNaN(range) && (range = 1);
+  !["square", "circle", "rounded", "triangle"].includes(shape) &&
+    (shape = "square");
+  !/^#[0-9A-F]{6}$/i.test(color) && (color = "#cccccc");
+
+  const sql = `
     INSERT INTO colors (color, amount, shape)
     VALUES ( ?, ?, ? )
 `;
-    connection.query(sql, [color, range, shape], err => {
-        if (err) throw err;
-        res.send('OK');
-    });
+  connection.query(sql, [color, range, shape], (err, result) => {
+    if (err) throw err;
+    setTimeout(() => {
+      res.json({success: true, id: result.insertId})
+    }, 2000);
+  });
 });
 
 app.listen(port, (_) => {

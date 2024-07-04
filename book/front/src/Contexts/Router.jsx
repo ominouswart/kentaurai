@@ -1,24 +1,21 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import Page404 from "../Components/Page404";
+import Page404 from "../Components/Common/Page404";
+import Home from "../Components/Web/Home";
+import Web from "../Components/Web/Parts/Layout";
+import Register from "../Components/Common/Register";
+import Login from "../Components/Common/Login";
 
 
 const RouterCountext = createContext([]);
 
 
-const Home = _ => {
-    return <div>
-        <h1>HOME</h1>
-        <a href="/#bebras/22">Bebras</a>
-        <a href="/#zebras/22">Zebras</a>
-        <a href="/#">Home</a>
-    </div>
-}
+
 
 const Bebras = _ => {
     return <div>
         <h1>BEBRAS</h1>
-        <a href="/#bebras/22">Bebras</a>
-        <a href="/#zebras/22">Zebras</a>
+        <a href="/#bebras">Bebras</a>
+        <a href="/#zebras">Zebras</a>
         <a href="/#">Home</a>
     </div>
 }
@@ -26,8 +23,8 @@ const Bebras = _ => {
 const Zebras = _ => {
     return <div>
         <h1>ZEBRAS</h1>
-        <a href="/#bebras/22">Bebras</a>
-        <a href="/#zebras/22">Zebras</a>
+        <a href="/#bebras">Bebras</a>
+        <a href="/#zebras">Zebras</a>
         <a href="/#">Home</a>
     </div>
 }
@@ -61,9 +58,11 @@ const Router = _ => {
 
     const routes = [
         { path: '', pc: 0, component: null },
-        { path: '#', pc: 0, component: <Home /> },
-        { path: '#bebras', pc: 1, component: <Bebras /> },
-        { path: '#zebras', pc: 1, component: <Zebras /> }
+        { path: '#', pc: 0, component: <Web><Home /></Web> },
+        { path: '#bebras', pc: 0, component: <Web><Bebras /></Web>},
+        { path: '#zebras', pc: 0, component: <Web><Zebras /></Web> },
+        { path: '#register', pc: 0, component: <Register />},
+        { path: '#login', pc: 0, component: <Login />}
     ];
 
     const routeComponent = routes.find(r => r.path === route && r.pc === params.length)?.component ?? <Page404 />

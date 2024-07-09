@@ -1,3 +1,5 @@
+import * as l from '../../Constants/urls';
+
 export default function Login() {
     return (
         <div id="wrapper">
@@ -22,8 +24,8 @@ export default function Login() {
                                                 </ul>
                                             </div>
                                             <ul className="actions">
-                                                <li className="col-12"><a href="/#">Grįžti į pradinį</a></li>
-                                                <li className="col-12"><a href="/#register">Registruotis</a></li>
+                                                <li className="col-12"><a href={'/' + l.SITE_HOME}>Grįžti į pradinį</a></li>
+                                                <li className="col-12"><a href={l.SITE_REGISTER}>Registruotis</a></li>
                                             </ul>
 
                                         </div>

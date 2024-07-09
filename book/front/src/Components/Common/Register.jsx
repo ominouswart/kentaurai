@@ -1,21 +1,26 @@
 import { useEffect, useState } from "react";
 import useServerPost from "../../Hooks/useServerPost";
-import { REDIRECT_AFTER_REGISTER } from "../../Constants/urls";
+import * as l from "../../Constants/urls";
 
 export default function Register() {
 
     const defaultValues = { name: '', email: '', psw: '', psw2: '' }
 
-    const { doAction, response } = useServerPost('register');
+    const { doAction, response } = useServerPost(l.SERVER_REGISTER);
 
     const [form, setForm] = useState(defaultValues);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
 
     useEffect(_ => {
         if (null === response) {
             return;
         }
+        setButtonDisabled(false);
+        if (response.type === 'success') {
+            window.location.hash = l.REDIRECT_AFTER_REGISTER;
+        }
 
-        window.location.hash = REDIRECT_AFTER_REGISTER;
+        
 
     }, [response]);
 
@@ -26,6 +31,7 @@ export default function Register() {
     const handleSubmit = _ => {
 
         // TODO validation
+        setButtonDisabled(true);
         doAction({
             name: form.name,
             email: form.email,
@@ -60,12 +66,12 @@ export default function Register() {
                                             </div>
                                             <div className="col-12">
                                                 <ul className="actions">
-                                                    <li><input onClick={handleSubmit} type="button" value="Registruotis" className="primary" /></li>
+                                                    <li><input disabled={buttonDisabled} onClick={handleSubmit} type="button" value="Registruotis" className="primary" /></li>
                                                 </ul>
                                             </div>
                                             <ul className="actions">
-                                                <li className="col-12"><a href="/#">Grįžti į pradinį</a></li>
-                                                <li className="col-12"><a href="/#">Prisijungti</a></li>
+                                                <li className="col-12"><a href={'/' + l.SITE_HOME}>Grįžti į pradinį</a></li>
+                                                <li className="col-12"><a href={l.SITE_LOGIN}>Prisijungti</a></li>
                                             </ul>
 
                                         </div>

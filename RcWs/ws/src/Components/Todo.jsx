@@ -13,20 +13,32 @@ const Todo = _ => {
 
 
     function addTask() {
-
+        if (newTask.trim() !== '') {
+            setTaskList(t => [...t, newTask]);
+        }
+        setNewTask('');
     }
 
 
     function deleteTask(i) {
-
+        const updatedList = taskList.filter((t, ind) => ind !== i);
+        setTaskList(updatedList)
     }
 
     function moveTaskUp(i) {
-
+        if (i > 0) {
+            const allTasks = [...taskList];
+            [allTasks[i], allTasks[i - 1]] = [allTasks[i - 1], allTasks[i]];
+            setTaskList(allTasks);
+        }
     }
 
     function moveTaskDown(i) {
-
+        if (i < taskList.length - 1) {
+            const allTasks = [...taskList];
+            [allTasks[i], allTasks[i + 1]] = [allTasks[i + 1], allTasks[i]];
+            setTaskList(allTasks);
+        }
     }
 
 

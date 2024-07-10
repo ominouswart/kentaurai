@@ -24,7 +24,11 @@ export const Messages = ({ children }) => {
     const MessageError = useCallback(error => {
         if (!error.response) {
             addMessage({ type: 'error', title: 'Server error', text: error.message })
+        } else {
+            addMessage({ type: 'error', title: 'Server error ' + error.response.status, text: error.response.data.message})
         }
+
+        console.log(error);
     }, [])
 
 

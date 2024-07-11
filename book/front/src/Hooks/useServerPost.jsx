@@ -1,41 +1,38 @@
-import { useContext, useState } from "react";
-import { SERVER_URL } from "../Constants/urls";
 import axios from 'axios';
-import { MessagesContext } from "../Contexts/Messages";
+import { SERVER_URL } from '../Constants/urls';
+import { useContext, useState } from 'react';
+import { MessagesContext } from '../Contexts/Messages';
 
-const useServerPost = (url, data) => {
+const useServerPost = url => {
 
     const [response, setResponse] = useState(null);
 
-    const {MessageError} = useContext(MessagesContext);
+    const { messageError, messageSuccess } = useContext(MessagesContext);
 
-    const doAction = _ => {
-
-
+    const doAction = data => {
 
         axios.post(`${SERVER_URL}${url}`, data)
             .then(res => {
-                console.log(res);
+                messageSuccess(res);
                 setResponse({
                     type: 'success',
                     data: res.data
-                })
+                });
             })
             .catch(error => {
                 console.log(error);
-                MessageError(error);
+                messageError(error);
                 setResponse({
-                type: 'error',
-                data: error
-            })
-        });
+                    type: 'error',
+                    serverData: error
+                });
+            });
 
     }
 
 
-    return { doAction, response };
+    return { doAction, serverResponse: response };
 
 }
-
 
 export default useServerPost;

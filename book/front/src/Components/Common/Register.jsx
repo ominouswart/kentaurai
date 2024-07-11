@@ -1,63 +1,63 @@
-import { useEffect, useState } from "react";
-import useServerPost from "../../Hooks/useServerPost";
-import * as l from "../../Constants/urls";
-import useRegister from "../../Validations/useRegister";
-import Input from "../Forms/Input";
+import { useEffect, useState } from 'react';
+import useServerPost from '../../Hooks/useServerPost';
+import * as l from '../../Constants/urls';
+import useRegister from '../../Validations/useRegister';
+import Input from '../Forms/Input';
 
 export default function Register() {
+
 
     const defaultValues = { name: '', email: '', psw: '', psw2: '' }
 
     const { errors, validate, setServerErrors } = useRegister();
 
-    const { doAction, response } = useServerPost(l.SERVER_REGISTER);
+    const { doAction, serverResponse } = useServerPost(l.SERVER_REGISTER);
 
     const [form, setForm] = useState(defaultValues);
     const [buttonDisabled, setButtonDisabled] = useState(false);
 
     useEffect(_ => {
-        if (null === response) {
+        if (null === serverResponse) {
             return;
         }
         setButtonDisabled(false);
-        if (response.type === 'success') {
+        if (serverResponse.type === 'success') {
             window.location.hash = l.REDIRECT_AFTER_REGISTER;
         } else {
-            if (response.data?.response?.data?.errors) {
-                setServerErrors(response.data.response.data.errors);
+            if (serverResponse.serverData?.response?.data?.errorsBag) {
+                setServerErrors(serverResponse.serverData.response.data.errorsBag);
             }
         }
 
 
 
-    }, [response]);
+    }, [serverResponse]);
 
     const handleForm = e => {
         setForm(f => ({ ...f, [e.target.name]: e.target.value }));
     }
 
     const handleSubmit = _ => {
-        // TODO validation
+        // TODO validations
 
         if (!validate(form)) {
             return;
         }
+
 
         setButtonDisabled(true);
         doAction({
             name: form.name,
             email: form.email,
             password: form.psw
-        })
+        });
     }
-
-
 
     return (
         <div id="wrapper">
             <div id="main">
                 <div className="inner">
-                    <header id="header"><h1>Registruotis</h1></header>
+                    <header id="header"><h2>Registruotis</h2></header>
                     <section>
                         <header className="main">
                             <div className="row aln-center">
@@ -81,11 +81,12 @@ export default function Register() {
                                                     <li><input disabled={buttonDisabled} onClick={handleSubmit} type="button" value="Registruotis" className="primary" /></li>
                                                 </ul>
                                             </div>
-                                            <ul className="actions">
-                                                <li className="col-12"><a href={'/' + l.SITE_HOME}>Grįžti į pradinį</a></li>
-                                                <li className="col-12"><a href={l.SITE_LOGIN}>Prisijungti</a></li>
-                                            </ul>
-
+                                            <div className="col-12">
+                                                <ul className="actions">
+                                                    <li><a href={'/' + l.SITE_HOME}>Grįžti į pradinį</a></li>
+                                                    <li><a href={l.SITE_LOGIN}>Prisijungti</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>

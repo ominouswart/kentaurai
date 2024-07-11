@@ -9,7 +9,7 @@ export default function Sidebar() {
     const [showSidebar, setShowSidebar] = useState(true);
 
     const toggleSidebar = _ => {
-
+        setShowSidebar(b => !b);
     }
 
     return (

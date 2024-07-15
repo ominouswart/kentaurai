@@ -8,6 +8,8 @@ export default function Header() {
             <ul className="icons">
                 <li><a href={l.SITE_LOGIN}><span className="label">Prisijungti</span></a></li>
                 <li><a href={l.SITE_REGISTER}><span className="label">Registruotis</span></a></li>
+
+                <li><a href={l.SITE_DASHBOARD}><span className="label">admin</span></a></li>
             </ul>
         </header>
     )

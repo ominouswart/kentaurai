@@ -1,4 +1,4 @@
-import { createContext, useCallback, useDebugValue, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 export const MessagesContext = createContext();
@@ -27,11 +27,14 @@ export const Messages = ({ children }) => {
         } else {
             addMessage({ type: 'error', title: 'Server error ' + error.response.status , text: error.response.data.message });
         }
-    }, []);
+    }, [addMessage]);
 
     const messageSuccess = useCallback(res => {
+        if (!res.data.message) {
+            return;
+        }
         addMessage({ type: res.data.message.type, title: res.data.message.title, text: res.data.message.text });
-    }, []);
+    }, [addMessage]);
 
 
     return (

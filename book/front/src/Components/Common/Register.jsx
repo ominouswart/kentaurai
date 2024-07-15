@@ -31,7 +31,7 @@ export default function Register() {
 
 
 
-    }, [serverResponse]);
+    }, [serverResponse, setServerErrors]);
 
     const handleForm = e => {
         setForm(f => ({ ...f, [e.target.name]: e.target.value }));

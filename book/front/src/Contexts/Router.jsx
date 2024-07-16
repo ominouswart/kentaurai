@@ -8,6 +8,7 @@ import Login from "../Components/Common/Login";
 import * as l from '../Constants/urls';
 import Dashboard from "../Components/Admin/Dashboard";
 import UsersList from "../Components/Admin/UsersList";
+import UserEdit from "../Components/Admin/UserEdit";
 
 
 const RouterCountext = createContext([]);
@@ -68,6 +69,7 @@ const Router = _ => {
 
         { path: l.SITE_DASHBOARD, pc: 1, p1: 'dashboard', component: <Admin><Dashboard /></Admin>},
         { path: l.USERS_LIST, pc: 1, p1: 'users', component: <Admin><UsersList /></Admin>},
+        { path: l.USER_EDIT, pc: 2, p1: 'user-edit', component: <Admin><UserEdit /></Admin>},
 
         { path: l.SITE_REGISTER, pc: 0, component: <Register />},
         { path: l.SITE_LOGIN, pc: 0, component: <Login />}
@@ -90,7 +92,9 @@ const Router = _ => {
 
 
     return (
-        <RouterCountext.Provider value={params} >
+        <RouterCountext.Provider value={{
+            params
+            }} >
             {routeComponent}
         </RouterCountext.Provider>
     )

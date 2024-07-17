@@ -60,7 +60,7 @@ export default function UsersList() {
             </section>
             <section>
                 {
-                    users === null && <h2>Palaukite, siunciame vartotoju sarasa...</h2>
+                    users === null && <h3>Palaukite, siunciame vartotoju sarasa...</h3>
                 }
                 {
                     users !== null && <div className="table-wrapper">
@@ -91,7 +91,7 @@ export default function UsersList() {
                                                     doDelete,
                                                     hideData: hideUser
                                                 })} type="button" value='Istrinti' className="small" /></li>
-                                                <li><a href={l.USER_EDIT + '/' + u.id} type="button" value='Redaguoti' className="small">Redaguoti</a></li>
+                                                <li><a href={l.USER_EDIT + '/' + u.id} className="small button">Redaguoti</a></li>
                                             </ul>
                                         </td>
                                     </tr>)

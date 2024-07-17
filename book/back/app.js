@@ -42,43 +42,154 @@ app.get("/admin/users", (_, res) => {
 });
 
 app.delete("/admin/delete/user/:id", (req, res) => {
+  setTimeout((_) => {
+    const { id } = req.params;
 
-    setTimeout(_ => {
-
-  const { id } = req.params;
-
-  const sql = `
+    const sql = `
     DELETE FROM users
     WHERE id = ? AND role != 'admin'
     `;
 
-  connection.query(sql, [id], (err, result) => {
-    if (err) throw err;
-    const deleted = result.affectedRows;
-    if (!deleted) {
+    connection.query(sql, [id], (err, result) => {
+      if (err) throw err;
+      const deleted = result.affectedRows;
+      if (!deleted) {
+        res
+          .status(422)
+          .json({
+            message: {
+              type: "info",
+              title: "Vartotojai",
+              text: "Vartotojas yra administratorius arba vartotojo nera",
+            },
+          })
+          .end();
+        return;
+      }
       res
-        .status(422)
         .json({
           message: {
-            type: "info",
+            type: "success",
             title: "Vartotojai",
-            text: "Vartotojas yra administratorius arba vartotojo nera",
+            text: "Vartotojas sekmingai istrintas",
           },
         })
         .end();
-      return;
+    });
+  }, 1000);
+});
+
+app.get("/admin/edit/user/:id", (req, res) => {
+  setTimeout((_) => {
+    const { id } = req.params;
+
+    const sql = `
+  SELECT id, name, email, role
+  FROM users
+  WHERE id = ?
+  `;
+
+    connection.query(sql, [id], (err, rows) => {
+      if (err) throw err;
+      if (!rows.length) {
+        res
+          .status(404)
+          .json({
+            message: {
+              type: "info",
+              title: "Vartotojai",
+              text: `Vartotojas nerastas`,
+            },
+          })
+          .end();
+        return;
+      }
+      res
+        .json({
+          user: rows[0],
+        })
+        .end();
+    });
+  }, 1000);
+});
+
+app.put("/admin/update/user/:id", (req, res) => {
+  setTimeout((_) => {
+    const { id } = req.params;
+    const { name, email, role, password } = req.body;
+
+    if (!password) {
+      const sql = `
+          UPDATE users
+          SET name = ?, email = ?, role = ?
+          WHERE id = ?
+          `;
+
+      connection.query(sql, [name, email, role, id], (err, result) => {
+        if (err) throw err;
+        const updated = result.affectedRows;
+        if (!updated) {
+          res
+            .status(404)
+            .json({
+              message: {
+                type: "info",
+                title: "Vartotojai",
+                text: `Vartotojas nerastas`,
+              },
+            })
+            .end();
+          return;
+        }
+        res
+          .json({
+            message: {
+              type: "success",
+              title: "Vartotojai",
+              text: `Vartotojas sėkmingai atnaujintas`,
+            },
+          })
+          .end();
+      });
+    } else {
+      const sql = `
+          UPDATE users
+          SET name = ?, email = ?, role = ?, password = ?
+          WHERE id = ?
+          `;
+
+      connection.query(
+        sql,
+        [name, email, role, md5(password), id],
+        (err, result) => {
+          if (err) throw err;
+          const updated = result.affectedRows;
+          if (!updated) {
+            res
+              .status(404)
+              .json({
+                message: {
+                  type: "info",
+                  title: "Vartotojai",
+                  text: `Vartotojas nerastas`,
+                },
+              })
+              .end();
+            return;
+          }
+          res
+            .json({
+              message: {
+                type: "success",
+                title: "Vartotojai",
+                text: `Vartotojas sėkmingai atnaujintas`,
+              },
+            })
+            .end();
+        }
+      );
     }
-    res
-      .json({
-        message: {
-          type: "success",
-          title: "Vartotojai",
-          text: "Vartotojas sekmingai istrintas",
-        },
-      })
-      .end();
-  });
-}, 1000);
+  }, 1500);
 });
 
 app.post("/register", (req, res) => {

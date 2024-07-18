@@ -1,6 +1,43 @@
+import { useContext, useEffect, useState } from 'react';
 import * as l from '../../Constants/urls';
+import Input from '../Forms/Input';
+import useServerPost from '../../Hooks/useServerPost';
+import { LoaderContext } from '../../Contexts/Loader';
+import { AuthContext } from '../../Contexts/Auth';
 
 export default function Login() {
+
+    const defaultValues = { email: '', password: ''};
+
+    const { doAction, serverResponse } = useServerPost(l.SERVER_LOGIN);
+
+    const { setShow } = useContext(LoaderContext);
+
+    const [form, setForm] = useState(defaultValues);
+
+    const { addUser } = useContext(AuthContext);
+
+    const handleForm = e => {
+        setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+    }
+
+    useEffect(_ => {
+        if (null === serverResponse) {
+            return;
+        }
+        if (serverResponse.type === 'success') {
+            addUser(serverResponse.serverData.user);
+            window.location.href = l.SITE_HOME;
+        }
+    }, [serverResponse, addUser]);
+
+    const submit = _ => {
+        setShow(true);
+        doAction(form);
+    }
+
+
+
     return (
         <div id="wrapper">
             <div id="main">
@@ -13,14 +50,14 @@ export default function Login() {
                                     <form>
                                         <div className="row gtr-uniform">
                                             <div className="col-6 col-12-xsmall">
-                                                <input type="email" name="email" placeholder="El. paštas" autoComplete="email" />
+                                                <Input onChange={handleForm} value={form.email} type="email" name="email" placeholder="El. paštas" autoComplete="email" />
                                             </div>
                                             <div className="col-6 col-12-xsmall">
-                                                <input type="password" name="psq" placeholder="Slaptazodis" autoComplete="new-password" />
+                                                <Input onChange={handleForm} value={form.password} type="password" name="password" placeholder="Slaptazodis" autoComplete="new-password" />
                                             </div>
                                             <div className="col-12">
                                                 <ul className="actions">
-                                                    <li><input type="button" value="Prisijungti" className="primary" /></li>
+                                                    <li><input onClick={submit} type="button" value="Prisijungti" className="primary" /></li>
                                                 </ul>
                                             </div>
                                             <ul className="actions">

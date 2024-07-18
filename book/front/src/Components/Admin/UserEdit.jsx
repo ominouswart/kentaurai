@@ -6,6 +6,7 @@ import roles from "../../Constants/roles";
 import Input from "../Forms/Input";
 import Select from "../Forms/Select";
 import useServerPut from "../../Hooks/useServerPut";
+import { LoaderContext } from "../../Contexts/Loader";
 
 export default function UserEdit() {
 
@@ -13,10 +14,11 @@ export default function UserEdit() {
     const { doAction: doGet, serverResponse: serverGetResponse } = useServerGet(l.SERVER_EDIT_USER);
     const { doAction: doPut, serverResponse: serverPutResponse } = useServerPut(l.SERVER_UPDATE_USER);
     const [user, setUser] = useState(null);
+    const { setShow } = useContext(LoaderContext);
 
     useEffect(_ => {
         doGet('/' + params[1]);
-    }, [doGet]);
+    }, [doGet, params]);
 
     useEffect(_ => {
         if (null === serverGetResponse) {
@@ -40,6 +42,7 @@ export default function UserEdit() {
 
     const submit = _ => {
         // TODO: validations
+        setShow(true);
         doPut(user);
     }
 

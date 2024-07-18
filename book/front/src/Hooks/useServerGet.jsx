@@ -2,6 +2,7 @@ import axios from 'axios';
 import { SERVER_URL } from '../Constants/urls';
 import { useContext, useState, useCallback } from 'react';
 import { MessagesContext } from '../Contexts/Messages';
+import { LoaderContext } from '../Contexts/Loader';
 
 const useServerGet = url => {
 
@@ -9,9 +10,11 @@ const useServerGet = url => {
 
     const { messageError, messageSuccess } = useContext(MessagesContext);
 
+    const { setShow } = useContext(LoaderContext);
+
     const doAction = useCallback((dataString = '') => {
 
-        axios.get(`${SERVER_URL}${url}${dataString}`)
+        axios.get(`${SERVER_URL}${url}${dataString}`, { withCredentials: true })
             .then(res => {
                 messageSuccess(res);
                 setResponse({
@@ -26,9 +29,12 @@ const useServerGet = url => {
                     type: 'error',
                     serverData: error
                 });
+            })
+            .finally (_ => {
+                setShow(false);
             });
 
-    }, [messageError, messageSuccess, url]);
+    }, [messageError, messageSuccess, url, setShow]);
 
 
     return { doAction, serverResponse: response };

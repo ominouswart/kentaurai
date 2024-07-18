@@ -2,6 +2,7 @@ import axios from 'axios';
 import { SERVER_URL } from '../Constants/urls';
 import { useContext, useState } from 'react';
 import { MessagesContext } from '../Contexts/Messages';
+import { LoaderContext } from '../Contexts/Loader';
 
 const useServerDelete = url => {
 
@@ -9,9 +10,11 @@ const useServerDelete = url => {
 
     const { messageError, messageSuccess } = useContext(MessagesContext);
 
+    const { setShow } = useContext(LoaderContext);
+
     const doAction = data => {
 
-        axios.delete(`${SERVER_URL}${url}/${data.id}`)
+        axios.delete(`${SERVER_URL}${url}/${data.id}`, { withCredentials: true })
             .then(res => {
                 messageSuccess(res);
                 setResponse({
@@ -26,6 +29,9 @@ const useServerDelete = url => {
                     type: 'error',
                     serverData: error
                 });
+            })
+            .finally (_ => {
+                setShow(false);
             });
 
     }

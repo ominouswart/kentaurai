@@ -1,8 +1,11 @@
 import axios from 'axios';
-import { SERVER_URL } from '../Constants/urls';
+import * as l from '../Constants/urls';
 import { useContext, useState, useCallback } from 'react';
 import { MessagesContext } from '../Contexts/Messages';
 import { LoaderContext } from '../Contexts/Loader';
+import { AuthContext } from '../Contexts/Auth';
+
+
 
 const useServerGet = url => {
 
@@ -12,9 +15,11 @@ const useServerGet = url => {
 
     const { setShow } = useContext(LoaderContext);
 
+    const { removeUser } = useContext(AuthContext);
+
     const doAction = useCallback((dataString = '') => {
 
-        axios.get(`${SERVER_URL}${url}${dataString}`, { withCredentials: true })
+        axios.get(`${l.SERVER_URL}${url}${dataString}`, { withCredentials: true })
             .then(res => {
                 messageSuccess(res);
                 setResponse({
@@ -25,6 +30,11 @@ const useServerGet = url => {
             .catch(error => {
                 console.log(error);
                 messageError(error);
+                if (error.response && 401 === error.response.status && 'not-logged-in' === error.response.data.reason) {
+                    removeUser();
+                    window.location.href = l.SITE_LOGIN;
+                    return;
+                }
                 setResponse({
                     type: 'error',
                     serverData: error

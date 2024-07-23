@@ -1,8 +1,12 @@
 import { useContext } from 'react';
 import * as l from '../../../Constants/urls';
 import { AuthContext } from '../../../Contexts/Auth';
+import Logout from '../../Common/Logout';
+
 
 export default function Header() {
+
+    
 
     const { user } = useContext(AuthContext);
 
@@ -13,7 +17,7 @@ export default function Header() {
                 {
                     user
                         ?
-                        <li><button className='link'><span className="label">Atsijungti, {user.name}</span></button></li>
+                        <Logout />
                         :
                         <>
                             <li><a href={l.SITE_LOGIN}><span className="label">Prisijungti</span></a></li>

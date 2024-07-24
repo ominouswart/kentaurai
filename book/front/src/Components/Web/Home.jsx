@@ -5,7 +5,7 @@ export default function Home() {
     return (
         <>
             {/* <!-- Banner --> */}
-            <section section id="banner" >
+            <section id="banner" >
                 <div className="content">
                     <header>
                         <h1>Hi, I’m Editorial<br />
@@ -23,7 +23,7 @@ export default function Home() {
             </section>
 
             {/* <!-- Section --> */}
-            <section section >
+            <section >
                 <header className="major">
                     <h2>Erat lacinia</h2>
                 </header>
@@ -60,7 +60,7 @@ export default function Home() {
             </section>
 
             {/* <!-- Section --> */}
-            <section section >
+            <section >
                 <header className="major">
                     <h2>Ipsum sed dolor</h2>
                 </header>

@@ -99,12 +99,34 @@ app.use(checkSession);
 
 
 
+app.get('/web/content', (req, res) => {
+ 
+    setTimeout(_ => {
+ 
+        const sql = `
+        SELECT *
+        FROM options`;
+ 
+        connection.query(sql, (err, rows) => {
+            if (err) throw err;
+            res.json({
+                content: rows
+            }).end();
+        });
+ 
+    }, 1500);
+});
 
 
 
-app.get('/admin/users', (_, res) => {
+
+app.get('/admin/users', (req, res) => {
 
     setTimeout(_ => {
+
+        if (!checkUserIsAuthorized(req, res, ['admin'])) {
+            return;
+        }
 
         const sql = `
         SELECT *
@@ -399,6 +421,8 @@ app.post('/register', (req, res) => {
         }
     });
 });
+
+
 
 
 

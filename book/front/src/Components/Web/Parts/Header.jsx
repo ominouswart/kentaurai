@@ -12,6 +12,9 @@ export default function Header() {
         <header id="header">
             <a href="index.html" className="logo"><strong>Raudonoji</strong> knyga</a>
             <ul className="icons">
+                <Gate status='role' role={['admin', 'user']}>
+                    <li><a href={l.SITE_DASHBOARD}><span className="label">Administravimas</span></a></li>
+                </Gate>
                 <Gate status='logged'>
                     <li><Logout /></li>
                 </Gate>
@@ -22,9 +25,7 @@ export default function Header() {
 
 
 
-                <Gate status='role' role={['admin']}>
-                    <li><a href={l.SITE_DASHBOARD}><span className="label">Administravimas</span></a></li>
-                </Gate>
+
             </ul>
         </header>
     )

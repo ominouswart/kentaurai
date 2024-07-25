@@ -10,6 +10,7 @@ import Dashboard from "../Components/Admin/Dashboard";
 import UsersList from "../Components/Admin/UsersList";
 import UserEdit from "../Components/Admin/UserEdit";
 import RouteGate from "../Components/Common/RouteGate";
+import EditContacts from "../Components/Admin/EditContacts";
 
 
 const RouterCountext = createContext([]);
@@ -74,6 +75,7 @@ const Router = _ => {
         { path: l.SITE_DASHBOARD, pc: 1, p1: 'dashboard', component: <RouteGate role={['admin']}><Admin><Dashboard /></Admin></RouteGate>},
         { path: l.USERS_LIST, pc: 1, p1: 'users', component: <RouteGate role={['admin']}><Admin><UsersList /></Admin></RouteGate>},
         { path: l.USER_EDIT, pc: 2, p1: 'user-edit', component: <RouteGate role={['admin']}><Admin><UserEdit /></Admin></RouteGate>},
+        { path: l.EDIT_CONTACTS, pc: 1, p1: 'edit-contacts', component: <RouteGate role={['admin']}><Admin><EditContacts /></Admin></RouteGate> },
 
         { path: l.SITE_REGISTER, pc: 0, component: <Register />},
         { path: l.SITE_LOGIN, pc: 0, component: <Login />}

@@ -18,6 +18,7 @@ export const REDIRECT_AFTER_REGISTER = '#prisijungti';
 export const SITE_DASHBOARD = '#admin/dashboard';
 export const USERS_LIST = '#admin/users';
 export const USER_EDIT = '#admin/user-edit';
+export const EDIT_CONTACTS = '#admin/edit-contacts';
 
 
 // Server back URLs
@@ -29,7 +30,10 @@ export const SERVER_EDIT_USER = 'admin/edit/user';
 export const SERVER_UPDATE_USER = 'admin/update/user';
 export const SERVER_LOGIN = 'login';
 export const SERVER_LOGOUT = 'logout';
+export const SERVER_EDIT_CONTACTS = 'admin/edit/contacts';
+export const SERVER_UPDATE_CONTACTS = 'admin/update/contacts';
 
 // Server front URLs
 
 export const GET_WEB_CONTENT = 'web/content';
+export const GET_TYPES = 'web/types';

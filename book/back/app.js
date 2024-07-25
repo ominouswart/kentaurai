@@ -30,11 +30,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
+
+const maintenance = (req, res, next) => {
+    res.status(503).json({
+        message: {
+            type: 'error',
+            title: 'Techniniai darbai',
+            text: `Atsiprašome, bet šiuo metu vykdomi techniniai darbai`
+        }
+    }).end();
+}
+
+
 const checkSession = (req, _, next) => {
     const session = req.cookies['book-session'];
-
-
-
     if (!session) {
         return next();
     }
@@ -45,9 +54,6 @@ const checkSession = (req, _, next) => {
     `;
     connection.query(sql, [session], (err, rows) => {
         if (err) throw err;
-
-        console.log(session, rows);
-
         if (!rows.length) {
             return next();
         }
@@ -55,16 +61,6 @@ const checkSession = (req, _, next) => {
         next();
     });
 }
-
-// const maintenance = (req, res, next) => {
-//   res.status(503).json({
-//       message: {
-//           type: 'error',
-//           title: 'Techniniai darbai',
-//           text: `Atsiprašome, bet šiuo metu vykdomi techniniai darbai`
-//       }
-//   }).end();
-// }
 
 const checkUserIsAuthorized = (req, res, roles) => {
     if (!req.user) {
@@ -93,30 +89,94 @@ const checkUserIsAuthorized = (req, res, roles) => {
 }
 
 
+
 // app.use(maintenance);
 
 app.use(checkSession);
 
+app.get('/web/types', (req, res) => {
+
+    setTimeout(_ => {
+
+        const sql = `
+        SELECT *
+        FROM types`;
+
+        connection.query(sql, (err, rows) => {
+            if (err) throw err;
+            res.json({
+                types: rows
+            }).end();
+        });
+
+    }, 1500);
+});
 
 
 app.get('/web/content', (req, res) => {
- 
+
     setTimeout(_ => {
- 
+
         const sql = `
         SELECT *
         FROM options`;
- 
+
         connection.query(sql, (err, rows) => {
             if (err) throw err;
             res.json({
                 content: rows
             }).end();
         });
- 
+
     }, 1500);
 });
 
+app.get('/admin/edit/contacts', (req, res) => {
+    setTimeout(_ => {
+        const sql = `
+        SELECT value
+        FROM options
+        WHERE name = 'contacts'`;
+        connection.query(sql, (err, rows) => {
+            if (err) throw err;
+            res.json({
+                contacts: rows[0]
+            }).end();
+        });
+    }, 1500);
+});
+
+app.put('/admin/update/contacts', (req, res) => {
+
+    setTimeout(_ => {
+
+        const { title, email, about, phone, address } = req.body;
+
+        //TODO: Validation
+
+        const value = JSON.stringify({ title, email, about, phone, address });
+        
+            const sql = `
+                UPDATE options
+                SET value = ?
+                WHERE name = 'contacts'
+                `;
+
+            connection.query(sql, [value], (err) => {
+                if (err) throw err;
+                res.json({
+                    message: {
+                        type: 'success',
+                        title: 'Vartotojai',
+                        text: `Kontaktai sėkmingai atnaujinti`
+                    }
+                }).end();
+            });
+        
+
+    }, 1500);
+
+});
 
 
 
@@ -338,16 +398,16 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-   
+
     setTimeout(_ => {
 
         const session = req.cookies['book-session'];
 
         const sql = `
-            UPDATE users
-            SET session = NULL
-            WHERE session = ?
-        `;
+                UPDATE users
+                SET session = NULL
+                WHERE session = ?
+            `;
 
         connection.query(sql, [session], (err, result) => {
             if (err) throw err;
@@ -421,8 +481,6 @@ app.post('/register', (req, res) => {
         }
     });
 });
-
-
 
 
 

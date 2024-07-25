@@ -10,17 +10,19 @@ import { Auth } from './Contexts/Auth';
 
 export default function App() {
   return (
-    <Auth>
+    
       <Messages>
         <Loader>
+        <Auth>
           <Modals>
             <Msg />
             <DeleteModal />
             <LoaderContainer />
             <Router />
           </Modals>
+          </Auth>
         </Loader>
       </Messages>
-    </Auth>
+    
   );
 }

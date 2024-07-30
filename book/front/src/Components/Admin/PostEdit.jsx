@@ -1,11 +1,13 @@
-import { useContext, useEffect, useState, useRef } from "react"
-import { RouterCountext } from "../../Contexts/Router"
-import useServerGet from "../../Hooks/useServerGet";
+import { useContext, useEffect, useState, useRef } from 'react';
+import { RouterCountext } from '../../Contexts/Router';
+import useServerGet from '../../Hooks/useServerGet';
+import useServerPut from '../../Hooks/useServerPut';
 import * as l from '../../Constants/urls';
-import Input from "../Forms/Input";
-import useServerPut from "../../Hooks/useServerPut";
-import { LoaderContext } from "../../Contexts/Loader";
-import TextArea from "../Forms/TextArea";
+import Input from '../Forms/Input';
+import Image from '../Forms/Image';
+import TextArea from '../Forms/TextArea';
+import { LoaderContext } from '../../Contexts/Loader';
+import { rem } from '../../Constants/icons';
 
 export default function PostEdit() {
 
@@ -16,6 +18,7 @@ export default function PostEdit() {
     const { setShow } = useContext(LoaderContext);
     const [imageName, setImageName] = useState('No image');
 
+
     useEffect(_ => {
         doGet('/' + params[1]);
     }, [doGet, params]);
@@ -24,7 +27,7 @@ export default function PostEdit() {
         if (null === serverGetResponse) {
             return;
         }
-        setPost(serverGetResponse.serverData.posts ?? null);
+        setPost(serverGetResponse.serverData.post ?? null);
     }, [serverGetResponse]);
 
     useEffect(_ => {
@@ -32,7 +35,7 @@ export default function PostEdit() {
             return;
         }
         if ('success' === serverPutResponse.type) {
-            window.location.hash = l.USERS_LIST;
+            window.location.hash = l.POSTS_LIST;
         }
     }, [serverPutResponse]);
 
@@ -70,7 +73,7 @@ export default function PostEdit() {
     }
 
     const submit = _ => {
-        // TODO: validations
+        //TODO: Validation
         setShow(true);
         doPut(post);
     }
@@ -80,17 +83,17 @@ export default function PostEdit() {
             <section id="banner">
                 <div className="content">
                     <header>
-                        <h1>Straipsnio redagavimas</h1>
+                        <h1>Straipsnio Redagavimas</h1>
                     </header>
                 </div>
             </section>
             <section>
                 {
-                    null === post && <h3>Uzkraunama...</h3>
+                    null === post && <h3>Palaukite, siunčiami straipsnio duomenys...</h3>
                 }
                 {
                     null !== post && <div className="row aln-center">
-                        <div className="col-4 col-8-large col-10-medium col-12-small">
+                        <div className="col-8 col-8-large col-10-medium col-12-small">
                             <form>
                                 <div className="row gtr-uniform">
                                     <div className="col-12">
@@ -103,14 +106,13 @@ export default function PostEdit() {
                                         <TextArea onChange={handleForm} value={post.content} type="text" name="content" />
                                     </div>
                                     <div className="col-12">
-                                        <input type="file" id="F" ref={imageInput} onChange={handleImage} />
+                                        <Image handleImage={handleImage} imageInput={imageInput} imageName={imageName} image={post.photo} clearImage={clearImage} rem={rem} name="photo" />
                                     </div>
 
                                     <div className="col-12">
                                         <ul className="actions">
-                                            <li><input onClick={submit} type='button' className='primary' value='Issaugoti'></input></li>
-                                            <li><a className='button' href={'/' + l.LIST_POSTS}>Visi straipsniai</a></li>
-
+                                            <li><input onClick={submit} type="button" value="Išsaugoti" className="primary" /></li>
+                                            <li><a className="button" href={'/' + l.POSTS_LIST}>Visi straipsniai</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -119,6 +121,8 @@ export default function PostEdit() {
                     </div>
                 }
             </section>
+
         </>
-    )
+    );
+
 }

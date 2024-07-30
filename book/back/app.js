@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 const { v4: uuidv4 } = require('uuid');
-// const fs = require('node:fs');
+const fs = require('node:fs');
 const md5 = require('md5');
 const app = express();
 const port = 3001;
@@ -26,8 +26,65 @@ app.use(cors({
 
 app.use(cookieParser());
 app.use(express.static('public'));
+app.use(express.json({ limit: '50mb' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
+// files
+const writeImage = imageBase64 => {
+    if (!imageBase64) {
+        return null;
+    }
+    let type;
+    let image;
+    if (imageBase64.indexOf('data:image/png;base64,') === 0) {
+        type = 'png';
+        image = Buffer.from(imageBase64.replace(/^data:image\/png;base64,/, ''), 'base64');
+    } else if (imageBase64.indexOf('data:image/jpeg;base64,') === 0) {
+        type = 'jpg';
+        image = Buffer.from(imageBase64.replace(/^data:image\/jpeg;base64,/, ''), 'base64');
+    } else {
+        res.status(500).send('Bad image format');
+        return;
+    }
+    const filename = md5(uuidv4()) + '.' + type;
+    fs.writeFileSync('public/img/' + filename, image);
+    return filename;
+};
+
+
+const deleteImage = postId => {
+  let sql = 'SELECT photo FROM posts WHERE id = ?';
+  connection.query(sql, [postId], (err, results) => {
+    if (err) {
+      res.status
+    } else {
+      if (results[0].photo) {
+        fs.unlinkSync('public/img/' + results[0].photo);
+      }
+    }
+  });
+};
+
+const preDeleteImage = postId => {
+    let sql = 'SELECT photo FROM posts WHERE id = ?';
+  connection.query(sql, [postId], (err, results) => {
+    if (err) {
+      return null;
+    } else {
+      if (results[0].photo) {
+        return results[0].photo;
+      }
+    }
+  });
+}
+
+const doDeleteImage = filename => {
+    fs.unlinkSync('public/img/' + filename);
+}
+
+ 
 
 
 
@@ -95,38 +152,26 @@ const checkUserIsAuthorized = (req, res, roles) => {
 app.use(checkSession);
 
 app.get('/web/types', (req, res) => {
-
     setTimeout(_ => {
-
-        const sql = `
-        SELECT *
-        FROM types`;
-
+        const sql = `SELECT * FROM types`;
         connection.query(sql, (err, rows) => {
             if (err) throw err;
             res.json({
                 types: rows
             }).end();
         });
-
     }, 1500);
 });
 
 app.get('/web/posts', (req, res) => {
-
     setTimeout(_ => {
-
-        const sql = `
-        SELECT *
-        FROM posts`;
-
+        const sql = `SELECT * FROM posts`;
         connection.query(sql, (err, rows) => {
             if (err) throw err;
             res.json({
                 posts: rows
             }).end();
         });
-
     }, 500);
 });
 
@@ -149,30 +194,15 @@ app.get('/web/content', (req, res) => {
     }, 1500);
 });
 
-app.get('/admin/edit/contacts', (req, res) => {
-    setTimeout(_ => {
-        const sql = `
-        SELECT value
-        FROM options
-        WHERE name = 'contacts'`;
-        connection.query(sql, (err, rows) => {
-            if (err) throw err;
-            res.json({
-                contacts: rows[0]
-            }).end();
-        });
-    }, 1500);
-});
 
 app.get('/admin/posts', (req, res) => {
     setTimeout(_ => {
-        if (!checkUserIsAuthorized(req, res, ['admin', 'user'])) {
+        if (!checkUserIsAuthorized(req, res, ['admin'])) {
             return;
         }
         const sql = `
         SELECT id, title, preview, photo, is_top
         FROM posts`;
- 
         connection.query(sql, (err, rows) => {
             if (err) throw err;
             res.json({
@@ -183,17 +213,14 @@ app.get('/admin/posts', (req, res) => {
 });
 
 app.delete('/admin/delete/post/:id', (req, res) => {
-
     setTimeout(_ => {
-
         const { id } = req.params;
-
+        const filename = preDeleteImage(id);
         const sql = `
         DELETE 
         FROM posts 
         WHERE id = ? AND is_top = 0
         `;
-
         connection.query(sql, [id], (err, result) => {
             if (err) throw err;
             const deleted = result.affectedRows;
@@ -202,12 +229,16 @@ app.delete('/admin/delete/post/:id', (req, res) => {
                     message: {
                         type: 'info',
                         title: 'Straipsniai',
-                        text: `Straipsnis yra paskirtas kaip virsutinis ir negali buti istrintas`
+                        text: `Straipsnis yra priskirtas kaip viršutinis ir negali būti ištrintas arba straipsnis neegzistuoja`
                     }
                 }).end();
                 return;
             }
+            if (filename) {
+                doDeleteImage(filename);
+            }
             res.json({
+                
                 message: {
                     type: 'success',
                     title: 'Straipsniai',
@@ -215,19 +246,14 @@ app.delete('/admin/delete/post/:id', (req, res) => {
                 }
             }).end();
         });
-
     }, 1500);
 });
 
 app.get('/admin/edit/post/:id', (req, res) => {
-
     setTimeout(_ => {
-
-
         if (!checkUserIsAuthorized(req, res, ['admin'])) {
             return;
         }
-
         const { id } = req.params;
         const sql = `
         SELECT *
@@ -247,12 +273,124 @@ app.get('/admin/edit/post/:id', (req, res) => {
                 return;
             }
             res.json({
-                posts: rows[0]
+                post: rows[0]
             }).end();
         });
 
     }, 1500);
+});
 
+app.put('/admin/update/post/:id', (req, res) => {
+
+    setTimeout(_ => {
+
+        const { id } = req.params;
+
+        const { title, content, preview, photo } = req.body;
+
+        if (photo) {
+            photo.length > 40 && deleteImage(id);
+            const filename = photo.length > 40 ? writeImage(photo) : photo;
+            const sql = `
+            UPDATE posts
+            SET title = ?, content = ?, preview = ?, photo = ?
+            WHERE id = ?
+            `;
+            connection.query(sql, [title, content, preview, filename, id], (err, result) => {
+                if (err) throw err;
+                const updated = result.affectedRows;
+                if (!updated) {
+                    res.status(404).json({
+                        message: {
+                            type: 'info',
+                            title: 'Straipsniai',
+                            text: `Straipsnis nerastas`
+                        }
+                    }).end();
+                    return;
+                }
+                res.json({
+                    message: {
+                        type: 'success',
+                        title: 'Straipsniai',
+                        text: `Straipsnis sėkmingai atnaujintas`
+                    }
+                }).end();
+            });
+        } else {
+            deleteImage(id);
+            const sql = `
+            UPDATE posts
+            SET title = ?, content = ?, preview = ?, photo = NULL
+            WHERE id = ?
+            `;
+            connection.query(sql, [title, content, preview, id], (err, result) => {
+                if (err) throw err;
+                const updated = result.affectedRows;
+                if (!updated) {
+                    res.status(404).json({
+                        message: {
+                            type: 'info',
+                            title: 'Straipsniai',
+                            text: `Straipsnis nerastas`
+                        }
+                    }).end();
+                    return;
+                }
+                res.json({
+                    message: {
+                        type: 'success',
+                        title: 'Straipsniai',
+                        text: `Straipsnis sėkmingai atnaujintas`
+                    }
+                }).end();
+            });
+        }
+
+    }, 1500);
+
+});
+
+
+app.post('/admin/store/post', (req, res) => {
+ 
+    setTimeout(_ => {
+ 
+        const { title, content, preview, photo } = req.body;
+        const filename = writeImage(photo);
+        const sql = `
+            INSERT INTO posts (title, content, preview, photo)
+            VALUES ( ?, ?, ?, ? )
+            `;
+        connection.query(sql, [title, content, preview, filename], (err) => {
+            if (err) throw err;
+            res.status(201).json({
+                message: {
+                    type: 'success',
+                    title: 'Straipsniai',
+                    text: `Straipsnis sėkmingai sukurtas`
+                }
+            }).end();
+        });
+ 
+    }, 1500);
+ 
+});
+
+
+app.get('/admin/edit/contacts', (req, res) => {
+    setTimeout(_ => {
+        const sql = `
+        SELECT value
+        FROM options
+        WHERE name = 'contacts'`;
+        connection.query(sql, (err, rows) => {
+            if (err) throw err;
+            res.json({
+                contacts: rows[0]
+            }).end();
+        });
+    }, 1500);
 });
 
 
@@ -265,30 +403,28 @@ app.put('/admin/update/contacts', (req, res) => {
         //TODO: Validation
 
         const value = JSON.stringify({ title, email, about, phone, address });
-        
-            const sql = `
+
+        const sql = `
                 UPDATE options
                 SET value = ?
                 WHERE name = 'contacts'
                 `;
 
-            connection.query(sql, [value], (err) => {
-                if (err) throw err;
-                res.json({
-                    message: {
-                        type: 'success',
-                        title: 'Vartotojai',
-                        text: `Kontaktai sėkmingai atnaujinti`
-                    }
-                }).end();
-            });
-        
+        connection.query(sql, [value], (err) => {
+            if (err) throw err;
+            res.json({
+                message: {
+                    type: 'success',
+                    title: 'Vartotojai',
+                    text: `Kontaktai sėkmingai atnaujinti`
+                }
+            }).end();
+        });
+
 
     }, 1500);
 
 });
-
-
 
 
 

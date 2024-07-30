@@ -92,7 +92,7 @@ export default function PostsList() {
                                                 <td>{p.is_top ? 'Pagrindinis' : ''}</td>
                                                 <td className="two">
                                                     <ul className="actions special">
-                                                        <li><a href={l.EDIT_POST + '/' + p.id} className="button small">redaguoti</a></li>
+                                                        <li><a href={l.POST_EDIT + '/' + p.id} className="button small">redaguoti</a></li>
                                                         <li><input onClick={_ => setDeleteModal({
                                                             data: p,
                                                             doDelete,

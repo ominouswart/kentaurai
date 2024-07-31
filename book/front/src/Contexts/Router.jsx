@@ -14,6 +14,7 @@ import EditContacts from "../Components/Admin/EditContacts";
 import PostsList from "../Components/Admin/PostsList";
 import PostEdit from "../Components/Admin/PostEdit";
 import PostCreate from "../Components/Admin/PostCreate";
+import Post from "../Components/Web/Post";
 
 
 const RouterCountext = createContext([]);
@@ -72,6 +73,7 @@ const Router = _ => {
     const routes = [
         { path: '', pc: 0, component: null },
         { path: l.SITE_HOME, pc: 0, component: <Web><Home /></Web> },
+        { path: l.SITE_POST, pc: 1, component: <Web><Post /></Web> },
         { path: '#bebras', pc: 0, component: <Web><Bebras /></Web>},
         { path: '#zebras', pc: 0, component: <Web><Zebras /></Web> },
 

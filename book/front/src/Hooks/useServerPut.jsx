@@ -9,15 +9,10 @@ import { RouterCountext } from '../Contexts/Router';
 const useServerPut = url => {
 
     const [response, setResponse] = useState(null);
-
     const { messageError, messageSuccess } = useContext(MessagesContext);
-
     const { setShow } = useContext(LoaderContext);
-
     const { removeUser } = useContext(AuthContext);
-
     const { prevPageLink } = useContext(RouterCountext);
-
     const doAction = data => {
 
         const param = data.id ? `/${data.id}` : '';
@@ -27,11 +22,10 @@ const useServerPut = url => {
                 messageSuccess(res);
                 setResponse({
                     type: 'success',
-                    data: res.data
+                    serverData: res.data
                 });
             })
             .catch(error => {
-                console.log(error);
                 messageError(error);
                 if (error.response && 401 === error.response.status && 'not-logged-in' === error.response.data.reason) {
                     removeUser();
@@ -47,7 +41,7 @@ const useServerPut = url => {
                     serverData: error
                 });
             })
-            .finally (_ => {
+            .finally(_ => {
                 setShow(false);
             });
 
